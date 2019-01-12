@@ -31,8 +31,11 @@ In[19]: similar('ปลาดิบ')
 where X: country, X': metonymy of country
 
 ### วิธีค้นหา X หรือ X'
-1. (metonymy B') - (metonymy A') + (country A) = (country B)
-2. (metonymy A') - (country A) + (country B) = (metonymy B')
+1. (country B) + (metonymy A') - (country A) = (metonymy B') : country B + metonymization vector
+2. (metonymy B') + (country A) - (metonymy A') = (country B) : metonymy B' - metonymization vector
 
-* ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555)
-* 'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447)
+#### วิธี 1 ค้นหา metonymy
+* 'เกาหลี' + ปลาดิบ' - 'ญี่ปุ่น' = ('กิมจิ', 0.7009077072143555) ...
+
+#### วิธี 2 ค้นหา country
+* 'มะกะโรนี' + 'ญี่ปุ่น' - 'ปลาดิบ' = ('อิตาลี', 0.553771436214447) ...
