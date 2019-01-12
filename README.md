@@ -9,12 +9,11 @@ gensim.model.word2vec size=200, min_count=5, window=15 <br>
 วัดความคล้ายคลีงโดยใช้ cos similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a>
 
-## Result: vector calculation
-'ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี'
-= ('กิมจิ', 0.7009077072143555) <br>
-
+## Result: vector calculation & similarity
+'ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555) <br>
+'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447)
 <pre>
-In[1]: similar('ปลาดิบ')
+In[19]: similar('ปลาดิบ')
 ('กิมจิ', 0.7630575299263)
 ('จิงโจ้', 0.6887362599372864)
 ('อิเหนา', 0.6832948923110962)
