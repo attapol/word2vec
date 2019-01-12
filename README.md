@@ -31,5 +31,5 @@ In[19]: similar('ปลาดิบ')
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" title="\overrightarrow{f} = \overrightarrow{OA'} - \overrightarrow{OA} = \overrightarrow{OB'} - \overrightarrow{OB}" /></a>
 
 ### วิธีคำนวณ
-1. metonymy B' - metonymy A' + country A = country B
-2. metonymy A' - country A + country B = metonymy B'
+1. (metonymy B') - (metonymy A') + (country A) = (country B)
+2. (metonymy A') - (country A) + (country B) = (metonymy B')
