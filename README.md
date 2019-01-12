@@ -27,6 +27,6 @@ In[19]: similar('ปลาดิบ')
 ## Result: vector calculation
 'ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555) <br>
 'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447) <br>
-https://github.com/nozomiyamada/word2vec/issues/1#issue-398530085
+![met_vector](https://user-images.githubusercontent.com/44984892/51070601-7ff18f00-1676-11e9-809e-eda1ae81a817.jpg) <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" title="\overrightarrow{f} = \overrightarrow{OA'} - \overrightarrow{OA} = \overrightarrow{OB'} - \overrightarrow{OB}" /></a>
 
