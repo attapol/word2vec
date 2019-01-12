@@ -30,9 +30,9 @@ In[19]: similar('ปลาดิบ')
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" title="\overrightarrow{f} = \frac{1}{n} \sum_{X}\overrightarrow{XX'} = \frac{1}{n}\left( (\overrightarrow{OA'} - \overrightarrow{OA}) + (\overrightarrow{OB'} - \overrightarrow{OB}) + \cdots \right)" /></a> <br>
 where X: country, X': metonymy of country
 
-### วิธีคำนวณ
+### วิธีค้นหา X หรือ X'
 1. (metonymy B') - (metonymy A') + (country A) = (country B)
 2. (metonymy A') - (country A) + (country B) = (metonymy B')
 
-ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555) <br>
-'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447) <br>
+* ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555)
+* 'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447)
