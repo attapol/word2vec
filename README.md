@@ -26,6 +26,7 @@ In[19]: similar('ปลาดิบ')
 
 ## Result: vector calculation
 ![met_vector](https://user-images.githubusercontent.com/44984892/51070601-7ff18f00-1676-11e9-809e-eda1ae81a817.jpg) <br>
+### metonymization vector 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" title="\overrightarrow{f} = \overrightarrow{OA'} - \overrightarrow{OA} = \overrightarrow{OB'} - \overrightarrow{OB}" /></a>
 
 ### วิธีคำนวณ
