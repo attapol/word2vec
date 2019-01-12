@@ -9,9 +9,7 @@ gensim.model.word2vec size=200, min_count=5, window=15 <br>
 วัดความคล้ายคลีงโดยใช้ cos similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a>
 
-## Result: vector calculation & similarity
-'ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555) <br>
-'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447)
+## Result: similarity
 <pre>
 In[19]: similar('ปลาดิบ')
 ('กิมจิ', 0.7630575299263)
@@ -25,3 +23,9 @@ In[19]: similar('ปลาดิบ')
 ('กีวี', 0.49096113443374634)
 ('ตะลุย', 0.47837239503860474)
 </pre>
+
+## Result: vector calculation
+'ปลาดิบ' - 'ญี่ปุ่น' + 'เกาหลี' = ('กิมจิ', 0.7009077072143555) <br>
+'มะกะโรนี' - 'ปลาดิบ' + 'ญี่ปุ่น' = ('อิตาลี', 0.553771436214447) <br>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\overrightarrow{OA'}&space;-&space;\overrightarrow{OA}&space;=&space;\overrightarrow{OB'}&space;-&space;\overrightarrow{OB}" title="\overrightarrow{f} = \overrightarrow{OA'} - \overrightarrow{OA} = \overrightarrow{OB'} - \overrightarrow{OB}" /></a>
+
