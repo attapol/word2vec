@@ -85,9 +85,9 @@ where X: country, X': metonymy of country
 |เกาหลี + ปลาดิบ | + | + | + |
 |เกาหลี + ปลาดิบ - ญี่ปุ่น| + | - | + |
 
-### 3.2 สมมติฐาน 2: metonymy is Affine transformation
+### 3.2 สมมติฐาน 2: metonymy is Affine Transformation
 <a href="https://www.codecogs.com/eqnedit.php?latex=\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" title="\vec{x'} = A\vec{x} + \vec{b}" /></a> <br>
-ถ้าอย่างนั้น ต้องหา linear transformation matrix A กับ shift vector b <br>
+ถ้าสมมติ Affine Transformation ต้องหา linear transformation matrix A กับ shift vector b <br>
 ในกรณีนี้ vector มี 200 มีติ สัมประสิทธิ์ก็มีทั้งหมด 200^2 (A) + 200 (b) = 40200 ตัว แต่เก็บตัวอย่างมากขนาดนั้นไม่ได้ เพราะฉะนั้นต้องการ regression model อะไรสักอย่าง
 
 ## 4. metonymy ที่พบเจอใน "ไทยรัฐ"
