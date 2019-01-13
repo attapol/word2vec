@@ -92,8 +92,8 @@ where X: country, X': metonymy of country
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
-* Euclid Distance
-* Mahalanobis Distance
+* Euclidean Distance -> ต้องเป็น orthogonal basis ใช้ได้หรือเปล่า?
+* Mahalanobis Distance -> เพื่อเปลียบเทียบทั้ง metonymy และหา prototype ได้
 
 ## 4. metonymy ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย  |
@@ -114,7 +114,7 @@ where X: country, X': metonymy of country
 
 ## 5. Problems
 * คำศัพท์บางคำหาไม่เจอโดยใช้วิธีนี้ เช่น คำว่า 'ช้าง' ซึ่งเป็นนามนัยของประเทศไทย อาจจะเป็นเพราะคำว่าข้างใช้ในบริบทธรรมดาด้วย ส่วนคำว่า 'ปลาดิบ' ไม่ค่อยปรากฏในความหมายดั้งเดิม (ปรากฏเฉพาะในกรณีพูดถึงประเทศญี่ปุ่น)
-* พูดถึง metonymy แล้ว ควรวิเคราะห์เชิง coginitive linguistics แต่ไม่รู้ว่าจะเชื่อมโยงกันได้อย่างไง
+* พูดถึง metonymy แล้ว ควรวิเคราะห์เชิง coginitive linguistics แต่ไม่รู้ว่าจะเชื่อมโยงกันได้อย่างไง ยกเว้นแนวคิด prototype
 * 
 
 ## 6. Extra
