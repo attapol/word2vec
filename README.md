@@ -76,7 +76,8 @@ where X: country, X': metonymy of country
 
 ### 3.2 สมมติฐาน 2: metonymy is Affine transform
 <a href="https://www.codecogs.com/eqnedit.php?latex=\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" title="\vec{x'} = A\vec{x} + \vec{b}" /></a> <br>
-ถ้าอย่างนั้น ต้องหา linear transformation matrix A กับ shift vector b
+ถ้าอย่างนั้น ต้องหา linear transformation matrix A กับ shift vector b <br>
+ต้องการ regression model อะไรสักอย่าง
 
 ## 4. metonymy ที่พบเจอ
 |ประเทศ  |นามนัย  |
