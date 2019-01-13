@@ -3,7 +3,7 @@
 ## Method
 หา correspondence ระหว่างประเทศกับ metonymy โดยใช้ deep learning (word2vec) <br>
 เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 203624 บทความ (12/01/2562) <br>
-ใช้ CBOW model (ฝึกโดยบทความเท่านั้น)
+ใช้ CBOW model (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
 ### python toolkit
 tokenizer: PyThaiNLP <br>
