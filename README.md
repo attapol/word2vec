@@ -54,25 +54,29 @@ In [118]: similar('ผู้ชาย')
 ## Result: vector calculation
 ### สมมติฐาน 1: metonymy is a parallel shift 
 ![met_vector](https://user-images.githubusercontent.com/44984892/51070601-7ff18f00-1676-11e9-809e-eda1ae81a817.jpg) <br>
-### mean metonymization vector 
+#### mean metonymization vector 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" title="\overrightarrow{f} = \frac{1}{n} \sum_{X}\overrightarrow{XX'} = \frac{1}{n}\left( (\overrightarrow{OA'} - \overrightarrow{OA}) + (\overrightarrow{OB'} - \overrightarrow{OB}) + \cdots \right)" /></a> <br>
 where X: country, X': metonymy of country
 
-### วิธีค้นหา X หรือ X'
+#### วิธีค้นหา X หรือ X'
 1. (country B) + (metonymy A') - (country A) = (metonymy B') : country B + metonymization vector
 2. (metonymy B') + (country A) - (metonymy A') = (country B) : metonymy B' - metonymization vector
 
-#### วิธี 1 ค้นหา metonymy
+##### วิธี 1 ค้นหา metonymy
 * 'เกาหลี' + ปลาดิบ' - 'ญี่ปุ่น' = ('กิมจิ', 0.7009077072143555) ...
 * 'อังกฤษ' + 'ซามูไร' - 'ญี่ปุ่น' = ('ผู้ดี', 0.5545893311500549) ...
 * 'เกาหลีเหนือ' + 'ซามูไร' - 'ญี่ปุ่น' = ('โสมแดง', 0.6188918948173523) ...
 * 'ญี่ปุ่น' + 'ไก่งวง' - 'ตุรกี' = ('ปลาดิบ', 0.5589873790740967) ...
 
-#### วิธี 2 ค้นหา country
+##### วิธี 2 ค้นหา country
 * 'มะกะโรนี' + 'ญี่ปุ่น' - 'ปลาดิบ' = ('อิตาลี', 0.553771436214447) ...
 * 'จิงโจ้' + 'เกาหลีใต้' - 'กิมจิ' = ('ออสเตรเลีย', 0.5869286060333252) ...
 * 'กีวี' + 'จีน' - 'มังกร' = ('นิวซีแลนด์', 0.5277906060218811) ...
 * 'อิเหนา' + 'ญี่ปุ่น' - 'ซามูไร' = ('อินโดนีเซีย', 0.5943317413330078) ...
+
+### สมมติฐาน 2: metonymy is Affine transform
+<a href="https://www.codecogs.com/eqnedit.php?latex=\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" title="\vec{x'} = A\vec{x} + \vec{b}" /></a> <br>
+ถ้าอย่างนั้น ต้องหา linear transformation matrix A กับ shift vector b
 
 ### metonymy ที่พบเจอ
 |ประเทศ  |นามนัย  |
