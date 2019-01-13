@@ -74,7 +74,7 @@ where X: country, X': metonymy of country
 * 'กีวี' + 'จีน' - 'มังกร' = ('นิวซีแลนด์', 0.5277906060218811) ...
 * 'อิเหนา' + 'ญี่ปุ่น' - 'ซามูไร' = ('อินโดนีเซีย', 0.5943317413330078) ...
 
-#### 3.1.3 Explanation with classiacal semantics (semantic features) 
+#### 3.1.3 Explanation by classical semantics (semantic features) 
 |คำ |ความเป็นนามนัย |ความเป็นญี่ปุ่น |ความเป็นเกาหลี | 
 |:-:|:-:|:-:|:-:|
 |ญี่ปุ่น  | - | + | - |
