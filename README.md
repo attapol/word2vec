@@ -93,7 +93,7 @@ where X: country, X': metonymy of country
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
 * Euclidean Distance -> ต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD ใช้ได้หรือเปล่า?
-* Mahalanobis Distance -> เพื่อเปลียบเทียบทั้ง metonymy และหา prototype ได้
+* Mahalanobis Distance -> เพื่อเปรียบเทียบทั้ง metonymy และหา prototype ได้
 
 ## 4. metonymy ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย  |
