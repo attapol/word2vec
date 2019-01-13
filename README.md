@@ -74,6 +74,14 @@ where X: country, X': metonymy of country
 * 'กีวี' + 'จีน' - 'มังกร' = ('นิวซีแลนด์', 0.5277906060218811) ...
 * 'อิเหนา' + 'ญี่ปุ่น' - 'ซามูไร' = ('อินโดนีเซีย', 0.5943317413330078) ...
 
+#### 3.1.3 Explanation with classiacal semantics (semantic features) 
+|คำ |ความเป็นนามนัย |ความเป็นญี่ปุ่น |ความเป็นเกาหลี | 
+|:-:|:-:|:-:|:-:|
+|ญี่ปุ่น  | - | + | - |
+|ปลาดิบ  | + | + | - |
+|เกาหลี  | - | - | - |
+|กิมจิ  | + | - | + |
+
 ### 3.2 สมมติฐาน 2: metonymy is Affine transform
 <a href="https://www.codecogs.com/eqnedit.php?latex=\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" title="\vec{x'} = A\vec{x} + \vec{b}" /></a> <br>
 ถ้าอย่างนั้น ต้องหา linear transformation matrix A กับ shift vector b <br>
