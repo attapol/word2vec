@@ -1,7 +1,7 @@
 # word2vec : Metonymies of countries in ไทยรัฐ
 
 ## 1. Method
-หา correspondence ระหว่างประเทศกับ metonymy โดยใช้ deep learning (word2vec) <br>
+หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
 เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 203624 บทความ (12/01/2562) <br>
 ใช้ CBOW model (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
@@ -79,7 +79,7 @@ where X: country, X': metonymy of country
 |:-:|:-:|:-:|:-:|
 |ญี่ปุ่น  | - | + | - |
 |ปลาดิบ  | + | + | - |
-|เกาหลี  | - | - | - |
+|เกาหลี  | - | - | + |
 |กิมจิ  | + | - | + |
 
 ### 3.2 สมมติฐาน 2: metonymy is Affine transform
