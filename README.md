@@ -13,6 +13,9 @@ gensim.model.word2vec (sg=0, size=200, min_count=5, window=15) <br>
 วัดความคล้ายคลึงโดยใช้ cos similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a> <br>
 ในปริภูมิ 200 มิติ similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 <br>
+![cos_sim_distribution_3](https://user-images.githubusercontent.com/44984892/51130336-61022100-185f-11e9-80ad-3dfce8f428bb.jpg)
+![cos_sim_distribution_50](https://user-images.githubusercontent.com/44984892/51130337-619ab780-185f-11e9-8088-d9d7ebd1810d.jpg)
+![cos_sim_distribution_200](https://user-images.githubusercontent.com/44984892/51130374-737c5a80-185f-11e9-99cf-dd40b64149ad.jpg)
 
 ## 2. Result: similarity
 <pre>
