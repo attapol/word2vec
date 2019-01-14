@@ -6,13 +6,13 @@
 ใช้ CBOW model (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
 ### 1.1 python toolkit
-tokenizer: PyThaiNLP <br>
+tokenizer: `pythainlp.tokenize.word_tokenize` <br>
 `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 
 ### 1.2 cosine similarity 
 วัดความคล้ายคลึงโดยใช้ cos similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a> <br>
-ในปริภูมิ 200 มิติ cosine similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 ( -> random_vector.py)<br>
+ในปริภูมิ 200 มิติ cosine similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) )<br>
 ![cos_sim_distribution_2](https://user-images.githubusercontent.com/44984892/51130575-e1288680-185f-11e9-9d24-d2962969f1e2.jpg)
 ![cos_sim_distribution_3](https://user-images.githubusercontent.com/44984892/51130336-61022100-185f-11e9-80ad-3dfce8f428bb.jpg)
 ![cos_sim_distribution_50](https://user-images.githubusercontent.com/44984892/51130337-619ab780-185f-11e9-8088-d9d7ebd1810d.jpg)
@@ -136,7 +136,7 @@ where X: country, X': metonymy of country
 ## 5. Problems
 * คำศัพท์บางคำหาไม่เจอโดยใช้วิธีนี้ เช่น คำว่า 'ช้าง' ซึ่งเป็นนามนัยของประเทศไทย อาจจะเป็นเพราะคำว่าข้างใช้ในบริบทธรรมดาด้วย ส่วนคำว่า 'ปลาดิบ' ไม่ค่อยปรากฏในความหมายดั้งเดิม (ปรากฏเฉพาะในกรณีพูดถึงประเทศญี่ปุ่น)
 * พูดถึง metonymy แล้ว ควรวิเคราะห์เชิง coginitive linguistics แต่ไม่รู้ว่าจะเชื่อมโยงกันได้อย่างไง ยกเว้นแนวคิด prototype
-* tokenizer ตัดคำไม่ถูก เช่น "นินจา" จะเป็น นิ-น-จา แต่ PyThaiNLP ไม่มี method ที่เพิ่มคำศัพท์ เพราะฉะนั้น ตัดไปแล้วค่อยเอามารวมกันอีกโดยใช้ unix (sed)
+* tokenizer ตัดคำไม่ถูก เช่น "นินจา" จะเป็น นิ-น-จา แต่ PyThaiNLP ไม่มี method ที่เพิ่มคำศัพท์ เพราะฉะนั้น ตัดไปแล้วค่อยเอามารวมกันอีกโดยใช้ unix `sed`
 
 ## 6. Extra
 * 'จีน' + 'โตเกียว' - 'ญี่ปุ่น' = ('ปักกิ่ง', 0.7812713384628296) ...
