@@ -7,7 +7,7 @@
 
 ### 1.1 python toolkit
 tokenizer: PyThaiNLP <br>
-gensim.model.word2vec (sg=0, size=200, min_count=5, window=15) <br>
+`gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 
 ### 1.2 cosine similarity 
 วัดความคล้ายคลึงโดยใช้ cos similarity <br>
@@ -17,7 +17,7 @@ gensim.model.word2vec (sg=0, size=200, min_count=5, window=15) <br>
 ![cos_sim_distribution_3](https://user-images.githubusercontent.com/44984892/51130336-61022100-185f-11e9-80ad-3dfce8f428bb.jpg)
 ![cos_sim_distribution_50](https://user-images.githubusercontent.com/44984892/51130337-619ab780-185f-11e9-8088-d9d7ebd1810d.jpg)
 ![cos_sim_distribution_200](https://user-images.githubusercontent.com/44984892/51130374-737c5a80-185f-11e9-99cf-dd40b64149ad.jpg)
-เพราะฉะนั้น สามารถคิดได้ว่า "มี similarity ตั้ง 0.5" ได้ แทนที่จะคิดว่า "มี similarity แค่ 0.5"
+เพราะฉะนั้น สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" ได้ แทนที่จะคิดว่า "มี similarity **แค่** 0.5"
 
 ## 2. Result: similarity
 <pre>
