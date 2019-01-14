@@ -1,7 +1,6 @@
 import requests
 import json
 from bs4 import BeautifulSoup
-import re
 import csv
 import numpy as np
 import collections
@@ -101,6 +100,8 @@ def scrape(start_id, end_id, open_tsv='thairath.tsv'):
     but always final one is the real content
     """
     write_file = open(open_tsv, 'a', encoding='utf-8')  # append mode
+    writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
+    
     for id in range(start_id, end_id):
         response = requests.get(url + str(id))  # get html
         if response.status_code == 200:  # if 404 pass
@@ -116,14 +117,16 @@ def scrape(start_id, end_id, open_tsv='thairath.tsv'):
             
             if len(str(id)) < 7: # make all id have 7 digit
                 id7 = '0'*(7-len(str(id)))+str(id)
-            
-            write_file.write(id7 + '\t' + headline + '\t' + description
-                             + '\t' + article + '\n')  # save as tsv
+            else:
+                id7 = str(id)
+            append_line = [id7, headline, description, article]
+            writer.writerow(append_line)
+    
     write_file.close()
 
 
 # error check 1 (in case the number of columns are incorrect)
-def column_check(open_tsv, num_of_column):
+def column_check(num_of_column, open_tsv='thairath.tsv'):
     """
     the correct number of thairath.tsv is 4 (id, headline, description, article)
     the correct number of labeled tsv is 5 (id, headline, description, article, label)
@@ -140,7 +143,7 @@ def column_check(open_tsv, num_of_column):
 
 
 # error check 2 (specify how incorrect one incorrect)
-def print_content(open_tsv, id):
+def print_content(article_id, open_tsv='thairath.tsv'):
     """
     print one article from id in order to check
 
@@ -153,7 +156,7 @@ def print_content(open_tsv, id):
     with open(open_tsv, 'r', encoding='utf-8') as file:
         lines = csv.reader(file, delimiter='\t')
         for line in lines:
-            if line[0] == str(id):
+            if line[0] == str(article_id):
                 for i in range(len(line)):
                     print(i, line[i])
                     print('--------------------------------------')
