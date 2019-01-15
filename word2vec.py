@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 @author: Nozomi
@@ -6,7 +5,9 @@
 from gensim.models import word2vec
 import csv
 import numpy as np
+import pandas as pd
 from pythainlp.tokenize import word_tokenize
+
 def tokenizer(text):
     word_list = word_tokenize(text)
     return word_list
@@ -71,8 +72,15 @@ def metonymy_vec(open_tsv='wordpair.tsv',write_tsv='metonymy_vector.tsv', model=
     open_file.close()
     write_file.close()   
     
-def metonymy_sim(metonymy1, country1, metonymy2, country2, model='article.model'):
+def metonymy_sim(open_tsv='metonymy_vector.tsv', model='article.model'):
     model = word2vec.Word2Vec.load(model)
-    vec1 = model.wv[metonymy1]-model.wv[country1]
-    vec2 = model.wv[metonymy2]-model.wv[country2]
-    return cos_sim(vec1, vec2)
+    open_file = open(open_tsv, 'r', encoding='utf-8')
+    lines = list(csv.reader(open_file, delimiter='\t'))
+    
+    sims = np.zeros((len(lines), len(lines)))
+    for i in range(len(lines)):
+        for j in range(len(lines)):
+            sims[i][j] = round(cos_sim(np.array(lines[i][2:],dtype=float), np.array(lines[j][2:],dtype=float)),3)
+    label = [line[0] for line in lines]
+    df = pd.DataFrame(sims, columns=label, index=label)
+    return df

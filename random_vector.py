@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 @author: Nozomi
@@ -10,8 +9,8 @@ import matplotlib.pyplot as plt
 def cos_sim(v1, v2):
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
-
-def sim_distribution(dim, num_of_vec):
+# plot histogram 
+def sim_distribution(dim, num_of_vec=1000):
     # make random k vectors that have n dimensions
     # randn = Gaussian
     vectors = np.random.randn(num_of_vec, dim)
@@ -27,8 +26,8 @@ def sim_distribution(dim, num_of_vec):
             count += 1
     print(count,len(sims))
     
-    plt.hist(sims, bins=40, range=(-1,1))
+    plt.hist(sims, bins=200, range=(-1,1))
     plt.xlabel('cosine similarity')
-    plt.ylabel('numbers')
+    plt.ylabel('Numbers')
     plt.title('cosine similarity distribution on {} dim, {} samples'.format(dim,num_of_vec))
     plt.show()
