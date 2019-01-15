@@ -6,6 +6,10 @@ from gensim.models import word2vec
 import csv
 import numpy as np
 import pandas as pd
+import matplotlib as mpl
+font = {"family":"Ayuthaya"}
+mpl.rc('font', **font)
+import matplotlib.pyplot as plt
 from pythainlp.tokenize import word_tokenize
 
 def tokenizer(text):
@@ -27,7 +31,7 @@ def tokenize(start_index, end_index, open_tsv='thairath.tsv', write_tsv='article
     lines = list(csv.reader(open_file, delimiter='\t'))
     writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
     
-    for line in lines[start_index: end_index + 1]:
+    for line in lines[start_index: end_index]:
         if line[0] not in id_list:
             # ถ้าใช้ headline line[1], description line[2] 
             new_line = [line[0], '|'.join(tokenizer(line[-1]))]
@@ -45,42 +49,59 @@ def make_model(open_tsv='article.tsv', save_name='article.model'):
     word_list = [line[1].split('|') for line in lines]
     model = word2vec.Word2Vec(word_list, size=200, min_count=5, window=15)
     model.save(save_name)
+
     
-def similar(word, n=20, model='article.model'):
-    model = word2vec.Word2Vec.load(model)
-    results = model.wv.most_similar(positive=[word], topn=n)
-    for result in results:
-       print(result)
-       
-def calc(posi, nega, n=20, model='article.model'):
-    model = word2vec.Word2Vec.load(model)
-    results = model.wv.most_similar(positive=posi, negative=nega, topn=n)
-    for result in results:
-       print(result)
-       
-def metonymy_vec(open_tsv='wordpair.tsv',write_tsv='metonymy_vector.tsv', model='article.model'):
-    model = word2vec.Word2Vec.load(model)
-    open_file = open(open_tsv, 'r', encoding='utf-8')
-    write_file = open(write_tsv, 'w', encoding='utf-8')
-    lines = list(csv.reader(open_file, delimiter='\t'))
-    writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
+class Metonymy:
+
+    def __init__(self, model='article.model'):
+        self.model = word2vec.Word2Vec.load(model)  
     
-    for line in lines:
-        new_line = line + list(model.wv[line[0]]-model.wv[line[1]])
-        writer.writerow(new_line)
+    def similar(self, word, n=20):
+        results = self.model.wv.most_similar(positive=[word], topn=n)
+        for result in results:
+           print(result)
+           
+    def calc(posi, nega, n=20):
+        results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
+        for result in results:
+           print(result)
+           
+    def save_vec(self, open_tsv='wordpair.tsv',write_tsv='metonymy_vector.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        write_file = open(write_tsv, 'w', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
         
-    open_file.close()
-    write_file.close()   
+        for line in lines:
+            new_line = line + list(self.model.wv[line[0]]-self.model.wv[line[1]])
+            writer.writerow(new_line)
+            
+        open_file.close()
+        write_file.close()   
     
-def metonymy_sim(open_tsv='metonymy_vector.tsv', model='article.model'):
-    model = word2vec.Word2Vec.load(model)
-    open_file = open(open_tsv, 'r', encoding='utf-8')
-    lines = list(csv.reader(open_file, delimiter='\t'))
-    
-    sims = np.zeros((len(lines), len(lines)))
-    for i in range(len(lines)):
-        for j in range(len(lines)):
-            sims[i][j] = round(cos_sim(np.array(lines[i][2:],dtype=float), np.array(lines[j][2:],dtype=float)),3)
-    label = [line[0] for line in lines]
-    df = pd.DataFrame(sims, columns=label, index=label)
-    return df
+    def vec_dis(self, open_tsv='metonymy_vector.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        label = [line[0] for line in lines]
+        dis = [np.linalg.norm(np.array(line[2:],dtype=float)) for line in lines]
+        
+        plt.barh(np.arange(len(label)), dis, tick_label=label)
+        plt.xlabel('Euclidean distance between metonymy and country')
+        plt.savefig('test.png', format='png', dpi=150)
+        plt.show()
+        
+    def vec_sim(self, open_tsv='metonymy_vector.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        sims = np.zeros((len(lines), len(lines)))
+        for i in range(len(lines)):
+            for j in range(len(lines)):
+                sims[i][j] = round(cos_sim(np.array(lines[i][2:],dtype=float), np.array(lines[j][2:],dtype=float)),3)
+        label = [line[0] for line in lines]
+        df = pd.DataFrame(sims, columns=label, index=label)
+        return df
+
+# instantiaion
+met = Metonymy()
