@@ -94,7 +94,7 @@ where X: country, X': metonymy of country
 |เกาหลี + ปลาดิบ | + | + | + |
 |เกาหลี + ปลาดิบ - ญี่ปุ่น| + | - | + |
 
-#### 3.1.4 similarity of each metonymy
+#### 3.1.4 similarity of each metonymization vector
 ![metonymy_table](https://user-images.githubusercontent.com/44984892/51151876-0b4d6900-189f-11e9-9159-1b86f5892305.png)
 
 ### 3.2 สมมติฐาน 2: metonymy is Affine Transformation
