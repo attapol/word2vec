@@ -10,7 +10,7 @@ tokenizer: `pythainlp.tokenize.word_tokenize` <br>
 `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 
 ### 1.2 cosine similarity 
-วัดความคล้ายคลึงโดยใช้ cos similarity <br>
+วัดความคล้ายคลึงโดยใช้ cosine similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a> <br>
 ในปริภูมิ 200 มิติ cosine similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) )<br>
 ![cos_sim_dis_2](https://user-images.githubusercontent.com/44984892/51155083-e78f2080-18a8-11e9-8800-c6f94f898597.png)
@@ -18,7 +18,7 @@ tokenizer: `pythainlp.tokenize.word_tokenize` <br>
 ![cos_sim_dis_50](https://user-images.githubusercontent.com/44984892/51155085-e827b700-18a8-11e9-9b0d-0dd3d347a9fa.png)
 ![cos_sim_dis_200](https://user-images.githubusercontent.com/44984892/51155087-e8c04d80-18a8-11e9-97e3-91fe07f0f67f.png)
 
-|มิติ |จำนวนที่ similarity สูงกว่า 0.5 |เปอร์เซนต์ | |
+|มิติ |จำนวนที่ similarity สูงกว่า 0.5 |ความน่าจะเป็น | |
 |:-:|--:|:-:|:--|
 |2 |166215 / 499500 |33.28% |[-π/3, π/3] / 2π = 1/3 |
 |3 |124860 / 499500 |25.00% |1/2 * 2π / 4π sr = 1/4 |
