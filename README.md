@@ -27,7 +27,7 @@ tokenizer: `pythainlp.tokenize.word_tokenize` <br>
 
 เพราะฉะนั้น สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5"
 
-## 2. Result: similarity
+## 2. Result: similarity of words
 <pre>
 similar('ปลาดิบ',10)
 ('อาทิตย์อุทัย', 0.8037128448486328)
