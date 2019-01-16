@@ -127,9 +127,10 @@ where X: country, X': metonymy of country
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
 
 #### 3.3.1 Distance between country and metonymy
-* Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง
-<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="500px" >
-
+* Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง <br>
+ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว มัชฌิมของ Euclidean distance ของสองจุดนี้จะเป็น 20 
+<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="400px" >
+![dis_distribution](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png)
 ![dis_words](https://user-images.githubusercontent.com/44984892/51267035-60989000-19ef-11e9-90d6-bc6dbe9bd03a.png)
 ![dis_words_log](https://user-images.githubusercontent.com/44984892/51267032-5ffff980-19ef-11e9-82d8-9ecca5263009.png) <br>
 
