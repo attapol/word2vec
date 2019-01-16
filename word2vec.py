@@ -5,6 +5,7 @@
 from gensim.models import word2vec
 import csv
 import numpy as np
+from scipy.spatial.distance import mahalanobis
 import pandas as pd
 import matplotlib as mpl
 font = {"family":"Ayuthaya"}
@@ -16,7 +17,7 @@ def tokenizer(text):
     word_list = word_tokenize(text)
     return word_list
     
-def tokenize(start_index, end_index, open_tsv='thairath.tsv', write_tsv='article.tsv'):
+def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokenized1.tsv'):
     """
     tokenize only headline and save
     """
@@ -43,7 +44,15 @@ def tokenize(start_index, end_index, open_tsv='thairath.tsv', write_tsv='article
 def cos_sim(v1, v2):
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
-def make_model(open_tsv='article.tsv', save_name='article.model'):
+def mahalanobis(vectors):
+    mean_vec = np.mean(vectors, axis=0)
+    deviation_vec = vectors - mean_vec
+    cov_matrix = np.cov(vectors.T, bias=False)
+    inv_matrix = np.linalg.inv(cov_matrix)
+    mahal_dis = list(map(lambda vec: np.sqrt(np.dot(np.dot(vec, inv_matrix), vec.T)), deviation_vec))
+    return mahal_dis
+
+def make_model(open_tsv='tokenized1.tsv', save_name='article.model'):
     file = open(open_tsv, 'r', encoding='utf-8')
     lines = list(csv.reader(file, delimiter='\t'))
     word_list = [line[1].split('|') for line in lines]
@@ -61,6 +70,9 @@ class Metonymy:
         for result in results:
            print(result)
            
+    def sim_two_word(self, word1, word2):
+        return cos_sim(met.model.wv[word1], met.model.wv[word2])
+    
     def calc(posi, nega, n=20):
         results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
         for result in results:
@@ -90,6 +102,18 @@ class Metonymy:
         plt.xlabel('Euclidean distance between metonymy and country')
         plt.savefig('test.png', format='png', dpi=150)
         plt.show()
+    
+    def mahal(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        metonymy_vectors = [self.model.wv[line[0]] for line in lines]
+        country_vectors = [self.model.wv[line[1]] for line in lines]
+        
+        metonymy_mahal = mahalanobis(np.array(metonymy_vectors,dtype=float))
+        country_mahal = mahalanobis(np.array(country_vectors,dtype=float))
+        
+        return metonymy_mahal, country_mahal
         
     def vec_sim(self, open_tsv='metonymy_vector.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')

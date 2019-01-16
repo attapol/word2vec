@@ -79,7 +79,7 @@ def return_str(text):
         return text_trim(text)
 
 
-def scrape(start_id, end_id, open_tsv='thairath.tsv'):
+def scrape(start_id, end_id, open_tsv='thairath1.tsv'):
     """
     specify content id and the maximum number of request.get
 
@@ -126,7 +126,7 @@ def scrape(start_id, end_id, open_tsv='thairath.tsv'):
 
 
 # error check 1 (in case the number of columns are incorrect)
-def column_check(num_of_column, open_tsv='thairath.tsv'):
+def column_check(num_of_column, open_tsv='thairath1.tsv'):
     """
     the correct number of thairath.tsv is 4 (id, headline, description, article)
     the correct number of labeled tsv is 5 (id, headline, description, article, label)
@@ -143,7 +143,7 @@ def column_check(num_of_column, open_tsv='thairath.tsv'):
 
 
 # error check 2 (specify how incorrect one incorrect)
-def print_content(article_id, open_tsv='thairath.tsv'):
+def print_content(article_id, open_tsv='thairath1.tsv'):
     """
     print one article from id in order to check
 
