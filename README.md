@@ -7,7 +7,7 @@
 
 ### 1.1 python toolkit
 tokenizer: `pythainlp.tokenize.word_tokenize` <br>
-`gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
+word2vec: `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 
 ### 1.2 cosine similarity 
 วัดความคล้ายคลึงโดยใช้ cosine similarity <br>
