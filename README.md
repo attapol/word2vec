@@ -116,7 +116,7 @@ where X: country, X': metonymy of country
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
-* Euclidean Distance -> ต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ไม่ใช่เกณฑ์ที่ขัดเจน
+* Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ไม่ใช่เกณฑ์ที่ขัดเจน
 <img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="500px" >
 
 * Mahalanobis Distance -> เพื่อเปรียบเทียบทั้ง metonymy และสามารถหา prototype ที่มีความนามนัยสูงที่สุดได้ แต่ต้องสมมติการกระจายเป็น Gaussian <br>
