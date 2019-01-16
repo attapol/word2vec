@@ -4,8 +4,8 @@
 """
 from gensim.models import word2vec
 import csv
+import random
 import numpy as np
-from scipy.spatial.distance import mahalanobis
 import pandas as pd
 import matplotlib as mpl
 font = {"family":"Ayuthaya"}
@@ -63,7 +63,8 @@ def make_model(open_tsv='tokenized1.tsv', save_name='article.model'):
 class Metonymy:
 
     def __init__(self, model='article.model'):
-        self.model = word2vec.Word2Vec.load(model)  
+        self.model = word2vec.Word2Vec.load(model)
+        self.vocab = list(self.model.wv.vocab.keys())
     
     def similar(self, word, n=20):
         results = self.model.wv.most_similar(positive=[word], topn=n)
@@ -73,7 +74,26 @@ class Metonymy:
     def sim_two_word(self, word1, word2):
         return cos_sim(met.model.wv[word1], met.model.wv[word2])
     
-    def calc(posi, nega, n=20):
+    def dis_two_word(self, word1, word2):
+        return np.linalg.norm(met.model.wv[word1] - met.model.wv[word2])
+    
+    def dis_two_word_random(self):
+        words = random.sample(self.vocab, 2)
+        #print(words)
+        return (np.linalg.norm(met.model.wv[words[0]] - met.model.wv[words[1]]))
+    
+    def dis_words(self, num_of_pair, log=False):
+        dis_list = [self.dis_two_word_random() for i in range(num_of_pair)]
+        
+        plt.hist(dis_list, bins=240, range=(0,60))
+        plt.xlabel('Euclidean distance')
+        plt.ylabel('Numbers')
+        if log == True:
+            plt.yscale('log')
+        plt.title('distances of random {} word pairs (bin=0.25)'.format(num_of_pair))
+        plt.show()
+        
+    def calc(self, posi, nega, n=20):
         results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
         for result in results:
            print(result)
@@ -96,7 +116,11 @@ class Metonymy:
         lines = list(csv.reader(open_file, delimiter='\t'))
         
         label = [line[0] for line in lines]
-        dis = [np.linalg.norm(np.array(line[2:],dtype=float)) for line in lines]
+        
+        vectors = np.array([line[2:] for line in lines])
+        dis = np.linalg.norm(vectors, axis=1)
+        corr = np.corrcoef(vectors)
+        print(corr)
         
         plt.barh(np.arange(len(label)), dis, tick_label=label)
         plt.xlabel('Euclidean distance between metonymy and country')
