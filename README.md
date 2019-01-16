@@ -134,8 +134,8 @@ where X: country, X': metonymy of country
 ![dis_words](https://user-images.githubusercontent.com/44984892/51267035-60989000-19ef-11e9-90d6-bc6dbe9bd03a.png)
 ![dis_words_log](https://user-images.githubusercontent.com/44984892/51267032-5ffff980-19ef-11e9-82d8-9ecca5263009.png) <br>
 
-ผลลัพธ์ : Euclidean distance between country and metonymy
-<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="400px" >
+ผลลัพธ์ : Euclidean distance between country and metonymy <br>
+<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="600px" >
 
 distance ของ metonymization vector ประมาณ 30 
 * Wasserstein Embeddings 
