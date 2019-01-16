@@ -145,6 +145,8 @@ where X: country, X': metonymy of country
 
 * Poincare Embeddings
 
+### 3.4 Princicple Component Analysis
+
 ## 4. รายชื่อ metonymy ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย |
 |:-:|:--|
