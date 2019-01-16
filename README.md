@@ -128,11 +128,15 @@ where X: country, X': metonymy of country
 
 #### 3.3.1 Distance between country and metonymy
 * Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง <br>
-ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว มัชฌิมของ Euclidean distance ของสองจุดนี้จะเป็น 20 
-<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="400px" >
-![dis_distribution](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png)
+ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว มัชฌิมของ Euclidean distance ของสองจุดนี้จะเป็น 20 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) )<br>
+![dis_distribution](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png) <br>
+
+Euclidean Distance Distribution of 100000 word pairs 
 ![dis_words](https://user-images.githubusercontent.com/44984892/51267035-60989000-19ef-11e9-90d6-bc6dbe9bd03a.png)
 ![dis_words_log](https://user-images.githubusercontent.com/44984892/51267032-5ffff980-19ef-11e9-82d8-9ecca5263009.png) <br>
+
+ผลลัพธ์ : Euclidean distance between country and metonymy
+<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="400px" >
 
 distance ของ metonymization vector ประมาณ 30 
 * Wasserstein Embeddings 
