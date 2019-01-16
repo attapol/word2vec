@@ -27,7 +27,6 @@ word2vec: `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 
 เพราะฉะนั้น สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5"
 
-
 |word1 | word2 | similarity |
 |:-:|:-:|--:|
 |สวย|โรงเรียน| -0.0428314 |
