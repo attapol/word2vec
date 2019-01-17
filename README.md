@@ -75,11 +75,12 @@ similar('ผู้ชาย',10)
 |การ์ตูน |หนังสือ |0.21807942 |
 |สยาม |พารากอน |0.31013966 |
 
-![cos_distribution](https://user-images.githubusercontent.com/44984892/51297072-6c1ca300-1a51-11e9-9d9a-b94d5111deee.png) <br>
+cosine similarity distribution of random two word pair (500000 pairs)<br>
+![cos_distribution](https://user-images.githubusercontent.com/44984892/51297774-55c41680-1a54-11e9-80b7-2ac4cad0f73b.png)<br>
 
 |จำนวนที่ similality สูงกว่า 0.5 | ความน่าจะเป็น || จำนวนที่ similality สูงกว่า 0.6 | ความน่าจะเป็น ||จำนวนที่ similality สูงกว่า 0.7 | ความน่าจะเป็น |
 |--:|:-:|:-:|--:|:-:|:-:|--:|:-:|
-|สวย|โรงเรียน|| -0.0428314 | a || a | a |
+| 10702/5000000| 0.214%|| /5000000| 0.131%|| 0/5000000| 0.000%|
 
 
 ## 3. Result: vector calculation
