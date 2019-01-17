@@ -133,13 +133,16 @@ where X: country, X': metonymy of country
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
 Result: detA (product of eigenvalue A<sub>i,i</sub>) = -1.174636213744117e-130 <br>
-cosine similarity of "mean metonymization vector" and "parallel translation b" is 0.6225
-เพราะฉะนั้น ตีความได้ว่า matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
+cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.6225
+เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
 
 #### 3.2.2 Affine Transformation with full matrix
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" title="\begin{pmatrix} x_1'\\x_2'\\\vdots\\x_{200}'\\1 \end{pmatrix} = \begin{pmatrix} A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\ A_{2,1}&A_{2,2}&\cdots&A_{2,200}& b_2\\ \vdots&\vdots&\ddots&\vdots&\vdots\\ A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\ 0&0&\cdots&0&1 \end{pmatrix} \begin{pmatrix} x_1\\x_2\\\vdots\\x_{200}\\1 \end{pmatrix}" /></a><br>
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย multiple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" title="x_i'=A_{i,1}x_1+A_{i,2}x_2+\cdots+A_{i,200}x_{200}+b_i" /></a>
+Result: detA ~ 0 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
+เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A ก็ส่งผลกว่านิดหน่อย แต่ อิทธิพลจาก parallel translation b ยังใหญ่กว่า
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
