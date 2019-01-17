@@ -77,6 +77,7 @@ similar('ผู้ชาย',10)
 
 cosine similarity distribution of random two word pair (500000 pairs)<br>
 ![cos_distribution](https://user-images.githubusercontent.com/44984892/51297774-55c41680-1a54-11e9-80b7-2ac4cad0f73b.png)<br>
+mean = 0.0305, SD = 0.107
 
 |จำนวนที่ similarity สูงกว่า 0.5 | ความน่าจะเป็น || จำนวนที่ similarity สูงกว่า 0.6 | ความน่าจะเป็น ||จำนวนที่ similarity สูงกว่า 0.7 | ความน่าจะเป็น |
 |--:|:-:|:-:|--:|:-:|:-:|--:|:-:|
