@@ -75,6 +75,8 @@ similar('ผู้ชาย',10)
 |การ์ตูน |หนังสือ |0.21807942 |
 |สยาม |พารากอน |0.31013966 |
 
+![cos_distribution](https://user-images.githubusercontent.com/44984892/51297072-6c1ca300-1a51-11e9-9d9a-b94d5111deee.png)
+
 ## 3. Result: vector calculation
 ### 3.1 สมมติฐาน 1: metonymy is a parallel translation
 ![met_vector](https://user-images.githubusercontent.com/44984892/51070601-7ff18f00-1676-11e9-809e-eda1ae81a817.jpg) <br>
