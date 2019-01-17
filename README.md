@@ -133,6 +133,7 @@ where X: country, X': metonymy of country
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
 Result: detA (product of eigenvalue A<sub>i,i</sub>) = -1.174636213744117e-130 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" is 0.6225
 เพราะฉะนั้น ตีความได้ว่า matrix A เกือบไม่ส่งผล และ metonimization จะเกิดจาก parallel translation b
 
 #### 3.2.2 Affine Transformation with full matrix
