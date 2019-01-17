@@ -12,7 +12,7 @@ word2vec: `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 ### 1.2 cosine similarity 
 วัดความคล้ายคลึงโดยใช้ cosine similarity <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\cos{\theta}&space;=&space;\frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" title="\cos{\theta} = \frac{\vec{x}\cdot\vec{y}}{|\vec{x}||\vec{y}|}" /></a> <br>
-ในปริภูมิ 200 มิติ cosine similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) )<br>
+ในปริภูมิ 200 มิติ cosine similarity ของสอง vector ที่สุ่มเลือกมา ส่วนใหญ่จะต่ำกว่า 0.5 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) ) `sim_distribution`<br>
 ![cos_sim_dis_2](https://user-images.githubusercontent.com/44984892/51155083-e78f2080-18a8-11e9-8800-c6f94f898597.png)
 ![cos_sim_dis_3](https://user-images.githubusercontent.com/44984892/51155084-e827b700-18a8-11e9-8b3f-1b8434bf3fdd.png)
 ![cos_sim_dis_50](https://user-images.githubusercontent.com/44984892/51155085-e827b700-18a8-11e9-9b0d-0dd3d347a9fa.png)
@@ -25,7 +25,7 @@ word2vec: `gensim.model.word2vec` (sg=0, size=200, min_count=5, window=15) <br>
 |50 |50 / 499500 |0.01% | |
 |200 |0 / 499500 |0.00% | |
 
-เพราะฉะนั้น สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5"
+เพราะฉะนั้น ในปริภูมิ 200 มิติ สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5" แต่ distribution จริงอาจจะไม่เหมือนกับ Gaussian จึงต้องวิเคราะห์ใหม่ทีหลัง
 
 ## 2. Result: similarity of words
 <pre>
@@ -66,8 +66,25 @@ similar('ผู้ชาย',10)
 ('รักเดียว', 0.5316658020019531)
 </pre>
 
+|word1 | word2 | similarity |
+|:-:|:-:|--:|
+|สวย|โรงเรียน| -0.0428314 |
+|ไป |อร่อย |0.04088692 |
+|ครับ |จุฬา |-0.032523237 |
+|วิ่ง |ทาน |0.10898548 |
+|การ์ตูน |หนังสือ |0.21807942 |
+|สยาม |พารากอน |0.31013966 |
+
+cosine similarity distribution of random two word pair (500000 pairs)<br>
+![cos_distribution](https://user-images.githubusercontent.com/44984892/51321833-67c6a900-1a96-11e9-95a9-18fcba024439.png) <br>
+Gaussian fitting : mean = 0.0305, SD = 0.107
+
+|จำนวนที่ similarity สูงกว่า 0.5 | ความน่าจะเป็น || จำนวนที่ similarity สูงกว่า 0.6 | ความน่าจะเป็น ||จำนวนที่ similarity สูงกว่า 0.7 | ความน่าจะเป็น |
+|--:|:-:|:-:|--:|:-:|:-:|--:|:-:|
+| 10702/5000000| 0.214%|| 6541/5000000| 0.131%|| 0/5000000| 0.000%|
+
 ## 3. Result: vector calculation
-### 3.1 สมมติฐาน 1: metonymy is a parallel shift 
+### 3.1 สมมติฐาน 1: metonymy is a parallel translation
 ![met_vector](https://user-images.githubusercontent.com/44984892/51070601-7ff18f00-1676-11e9-809e-eda1ae81a817.jpg) <br>
 #### 3.1.1 mean metonymization vector 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{f}&space;=&space;\frac{1}{n}&space;\sum_{X}\overrightarrow{XX'}&space;=&space;\frac{1}{n}\left(&space;(\overrightarrow{OA'}&space;-&space;\overrightarrow{OA})&space;&plus;&space;(\overrightarrow{OB'}&space;-&space;\overrightarrow{OB})&space;&plus;&space;\cdots&space;\right)" title="\overrightarrow{f} = \frac{1}{n} \sum_{X}\overrightarrow{XX'} = \frac{1}{n}\left( (\overrightarrow{OA'} - \overrightarrow{OA}) + (\overrightarrow{OB'} - \overrightarrow{OB}) + \cdots \right)" /></a> <br>
@@ -107,31 +124,54 @@ where X: country, X': metonymy of country
 
 ### 3.2 สมมติฐาน 2: metonymy is Affine Transformation
 <a href="https://www.codecogs.com/eqnedit.php?latex=\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\vec{x'}&space;=&space;A\vec{x}&space;&plus;&space;\vec{b}" title="\vec{x'} = A\vec{x} + \vec{b}" /></a> <br>
-ถ้าสมมติ Affine Transformation ต้องหา linear transformation matrix A กับ shift vector b <br>
+ถ้าสมมติ Affine Transformation ต้องหา linear transformation matrix A กับ translation vector b <br>
 ในกรณีนี้ vector มี 200 มิติ สัมประสิทธิ์ก็มีทั้งหมด 200^2 (A) + 200 (b) = 40200 ตัว (ต้องการ 201 vector ที่ต่างกัน) แต่เก็บตัวอย่างมากขนาดนี้ไม่ได้ เพราะฉะนั้นต้องการ regression model อะไรสักอย่าง เช่น least squares นอกจากนั้น ลองทำ approximation เป็น diagonal matrix
 
 #### 3.2.1 Affine Transformation with diagonal matrix
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&0&\cdots&0&b_1\\&space;0&A_{2,2}&\cdots&0&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;0&0&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&0&\cdots&0&b_1\\&space;0&A_{2,2}&\cdots&0&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;0&0&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" title="\begin{pmatrix} x_1'\\x_2'\\\vdots\\x_{200}'\\1 \end{pmatrix} = \begin{pmatrix} A_{1,1}&0&\cdots&0&b_1\\ 0&A_{2,2}&\cdots&0& b_2\\ \vdots&\vdots&\ddots&\vdots&\vdots\\ 0&0&\cdots&A_{200,200}&b_{200}\\ 0&0&\cdots&0&1 \end{pmatrix} \begin{pmatrix} x_1\\x_2\\\vdots\\x_{200}\\1 \end{pmatrix}" /></a><br>
+ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย simple linear regression <br>
+<a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
+
+Result: detA (product of eigenvalue A<sub>i,i</sub>) = -1.174636213744117e-130 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.6225
+เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
 
 #### 3.2.2 Affine Transformation with full matrix
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" title="\begin{pmatrix} x_1'\\x_2'\\\vdots\\x_{200}'\\1 \end{pmatrix} = \begin{pmatrix} A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\ A_{2,1}&A_{2,2}&\cdots&A_{2,200}& b_2\\ \vdots&\vdots&\ddots&\vdots&\vdots\\ A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\ 0&0&\cdots&0&1 \end{pmatrix} \begin{pmatrix} x_1\\x_2\\\vdots\\x_{200}\\1 \end{pmatrix}" /></a><br>
+ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย multiple linear regression <br>
+<a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" title="x_i'=A_{i,1}x_1+A_{i,2}x_2+\cdots+A_{i,200}x_{200}+b_i" /></a>
+Result: detA ~ 0 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
+เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A ก็ส่งผลกว่านิดหน่อย แต่ อิทธิพลจาก parallel translation b ยังใหญ่กว่า
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
 
 #### 3.3.1 Distance between country and metonymy
-* Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ไม่ใช่เกณฑ์ที่ขัดเจน
-<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="500px" >
+* Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว distribution ของ Euclidean distance ของสองจุดนี้ก็จะเป็น Gaussian เหมือนกัน โดยมีค่ามัชฌิม 20 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) ) `dis_distribution`<br>
+![dis_distribution](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png) <br>
 
+แต่ที่จริง การกระจายของ word vector ไม่เหมือน gaussian <br>
+![dis_words](https://user-images.githubusercontent.com/44984892/51267035-60989000-19ef-11e9-90d6-bc6dbe9bd03a.png)
+![dis_words_log](https://user-images.githubusercontent.com/44984892/51267032-5ffff980-19ef-11e9-82d8-9ecca5263009.png) <br>
+
+ผลลัพธ์ : Euclidean distance between country and metonymy <br>
+<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="600px" >
+
+distance ของ metonymization vector ประมาณ 30 
 * Wasserstein Embeddings 
 
 #### 3.3.2 Distance among metonymies (or countries)
 
 * ~~Mahalanobis Distance -> เพื่อเปรียบเทียบทั้ง metonymy และสามารถหา prototype ที่มีความนามนัยสูงที่สุดได้ แต่ต้องสมมติการกระจายเป็น Gaussian~~ <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" title="N(\vec{x}|\vec{\mu},\Sigma) = \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}} \exp \left[ -\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu}) \right]" /></a> <br>
-ใช้ไม่ได้ เพราะต้องเป็นแบบ **จำนวนข้อมูล > จำนวนมิติ** ไม่อย่างนั้น หา inverse matrix ของ covariance matrix ไม่ได้
+ใช้ไม่ได้ เพราะต้องเป็นแบบ **จำนวนข้อมูล > จำนวนมิติ (full rank)** ไม่อย่างนั้น หา inverse matrix ของ covariance matrix ไม่ได้
 
 * k-means : clustering metonymies into subtypes 
 
 * Poincare Embeddings
+
+### 3.4 Canonical Correlation Analysis
 
 ## 4. รายชื่อ metonymy ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย |
@@ -143,15 +183,19 @@ where X: country, X': metonymy of country
 |ตุรกี |ไก่งวง |
 |ออสเตรเลีย |จิงโจ้ |
 |นิวซีแลนด์ |กีวี |
+|กัมพูชา |นครวัด |
 |อินโดนีเซีย |อิเหนา |
 |อีนเดีย |ภารตะ |
-|สิงคโปร์ |ลอดช่อง |
-|สหรัฐฯ |นกอินทรี |
+|มองโกเลีย |เจงกิสข่าน |
+|สิงคโปร์ |ลอดช่อง, เมอร์ไลออน |
+|สหรัฐฯ |นกอินทรี, แฮมเบอร์เกอร์ |
 |อิตาลี |มะกะโรนี |
 |รัสเซีย |หมีขาว |
 |ฝรั่งเศส |น้ำหอม |
+|เยอรมัน |เบียร์ |
 |สเปน |กระทิง |
 |โปรตุเกส |ฝอยทอง |
+|เนเธอร์แลนด์ |กังหันลม | 
 
 ดูเหมือนว่ามี metonymy สองประเภทใหญ่ ได้แก่ "ของกิน" กับ "สิ่งมีชีวิต"
 1. ของกิน : ปลาดิบ กิมจิ มะกะโรนี
