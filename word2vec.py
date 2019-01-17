@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 @author: Nozomi
 """
@@ -6,12 +5,16 @@ from gensim.models import word2vec
 import csv
 import random
 import numpy as np
+from scipy.stats import norm
 import pandas as pd
 import matplotlib as mpl
-font = {"family":"Ayuthaya"}
+#font = {"family":"Ayuttaya"}
 mpl.rc('font', **font)
 import matplotlib.pyplot as plt
+import pylab as plb
 from pythainlp.tokenize import word_tokenize
+from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
 
 def tokenizer(text):
     word_list = word_tokenize(text)
@@ -65,32 +68,74 @@ class Metonymy:
     def __init__(self, model='article.model'):
         self.model = word2vec.Word2Vec.load(model)
         self.vocab = list(self.model.wv.vocab.keys())
+        
+    def vec(self, word):
+        return self.model.wv[word]
     
     def similar(self, word, n=20):
         results = self.model.wv.most_similar(positive=[word], topn=n)
         for result in results:
            print(result)
-           
-    def sim_two_word(self, word1, word2):
-        return cos_sim(met.model.wv[word1], met.model.wv[word2])
     
-    def dis_two_word(self, word1, word2):
-        return np.linalg.norm(met.model.wv[word1] - met.model.wv[word2])
+    def two_word(self, word1, word2):
+        return cos_sim(met.model.wv[word1], met.model.wv[word2]), np.linalg.norm(met.model.wv[word1] - met.model.wv[word2])
     
     def dis_two_word_random(self):
         words = random.sample(self.vocab, 2)
+        #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
+            #words = random.sample(self.vocab, 2)
         #print(words)
         return (np.linalg.norm(met.model.wv[words[0]] - met.model.wv[words[1]]))
+    
+    def sim_two_word_random(self):
+        words = random.sample(self.vocab, 2)
+        #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
+            #words = random.sample(self.vocab, 2)
+        #print(words)
+        return (cos_sim(met.model.wv[words[0]],met.model.wv[words[1]]))
     
     def dis_words(self, num_of_pair, log=False):
         dis_list = [self.dis_two_word_random() for i in range(num_of_pair)]
         
         plt.hist(dis_list, bins=240, range=(0,60))
         plt.xlabel('Euclidean distance')
-        plt.ylabel('Numbers')
+        plt.ylabel('numbers')
         if log == True:
             plt.yscale('log')
         plt.title('distances of random {} word pairs (bin=0.25)'.format(num_of_pair))
+        plt.show()
+        
+    def sim_words(self, num_of_pair, log=False):
+        sim_list = [self.sim_two_word_random() for i in range(num_of_pair)]
+        
+        count5 = 0
+        count6 = 0
+        count7 = 0
+        for i in sim_list:
+            if i >= 0.5:
+                count5 += 1
+            if i >= 0.6:
+                count6 +=1
+            if i >= 0.7:
+                count6 +=1
+        print(count5, count6, count7)
+        
+        x = np.linspace(-1,1,201)
+        param = norm.fit(sim_list)
+        pdf_fitted = norm.pdf(x,loc=param[0], scale=param[1])
+        pdf = norm.pdf(x)
+        print(param)
+        
+        plt.figure
+        plt.title('Normal distribution')
+        plt.plot(x, pdf_fitted, 'r-')
+        
+        plt.hist(sim_list, bins=200, range=(-1,1), density=1)
+        plt.xlabel('cosine similarity')
+        
+        if log == True:
+            plt.yscale('log')
+        plt.title('cosine similarity of random {} word pairs (bin=0.01)'.format(num_of_pair))
         plt.show()
         
     def calc(self, posi, nega, n=20):
@@ -151,5 +196,45 @@ class Metonymy:
         df = pd.DataFrame(sims, columns=label, index=label)
         return df
 
+    def affine_simple(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        metonymy_vectors = np.array([self.model.wv[line[0]] for line in lines], dtype=float)
+        country_vectors = np.array([self.model.wv[line[1]] for line in lines], dtype=float)
+        
+        mean_metonymize = np.mean(metonymy_vectors - country_vectors, axis=0)
+        
+        coef_list = []
+        intercept_list = []
+        for i in range(200):
+            regression = np.polyfit(country_vectors.T[i], metonymy_vectors.T[i],1)
+            coef_list.append(regression[0])
+            intercept_list.append(regression[1])
+        
+        
+        print('similarity of metonymy vector and coefficient b', cos_sim(mean_metonymize,intercept_list))
+        return np.linalg.det(np.diag(coef_list)), coef_list , mean_metonymize
+    
+    def affine_multiple(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        metonymy_vectors = np.array([self.model.wv[line[0]] for line in lines], dtype=float)
+        country_vectors = np.array([self.model.wv[line[1]] for line in lines], dtype=float)
+        
+        self.mean_metonymize = np.mean(metonymy_vectors - country_vectors, axis=0)
+        
+        coef_list = []
+        intercept_list = []
+        for i in range(200):
+            y = metonymy_vectors[:,i].T
+            lr.fit(country_vectors,y)
+            coef_list.append(lr.coef_)
+            intercept_list.append(lr.intercept_)
+        
+        self.b = intercept_list
+        print('similarity of metonymy vector and coefficient b', cos_sim(self.mean_metonymize,intercept_list))
+        return np.linalg.det(np.array(coef_list))
 # instantiaion
 met = Metonymy()
