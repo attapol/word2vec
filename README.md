@@ -82,6 +82,7 @@ cosine similarity distribution of random two word pair (500000 pairs)<br>
 |--:|:-:|:-:|--:|:-:|:-:|--:|:-:|
 | 10702/5000000| 0.214%|| 6541/5000000| 0.131%|| 0/5000000| 0.000%|
 
+-> approximation as Gaussian จะได้รู้ว่า SD เท่าไร หรือใช้สูตร FWHM = 2√2lnσ<br>
 
 ## 3. Result: vector calculation
 ### 3.1 สมมติฐาน 1: metonymy is a parallel translation
