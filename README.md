@@ -75,15 +75,6 @@ met.similar('ผู้ชาย',10)
 ('ชายหนุ่ม', 0.6373834609985352)
 </pre>
 
-|word1 | word2 | similarity |
-|:-:|:-:|--:|
-|สวย|โรงเรียน| -0.0428314 |
-|ไป |อร่อย |0.04088692 |
-|ครับ |จุฬา |-0.032523237 |
-|วิ่ง |ทาน |0.10898548 |
-|การ์ตูน |หนังสือ |0.21807942 |
-|สยาม |พารากอน |0.31013966 |
-
 cosine similarity distribution of random two word pair (500000 pairs)<br>
 ![sim_distribution](https://user-images.githubusercontent.com/44984892/51410970-b2304e80-1b98-11e9-9fca-0d688584972d.png) <br>
 Gaussian fitting : mean = 0.1917, SD = 0.1257 <br>
@@ -96,6 +87,14 @@ mean ไม่ใช่ 0 แสดงว่า vector เหล่านี้�
 |0.7 | 1580 / 1000000| 0.1580%|
 
 note : ถ้าใช้ CBOW model ค่ามัฌขิมจะเป็นประมาณ 0
+
+|word1 | word2 | similarity | distance |
+|:-:|:-:|--:|--:|
+|สวย|โรงเรียน|0.1545247 |3.7336485 |
+|ไป |อร่อย |0.17561817 |3.8372965 |
+|ครับ |จุฬา |0.07391273 |4.64459 |
+|การ์ตูน |หนังสือ |0.34722275 |3.8463798 |
+|สยาม |พารากอน |0.374858 |4.1474586 |
 
 ## 3. Result: vector calculation
 ### 3.1 สมมติฐาน 1: metonymy is a parallel translation
@@ -167,11 +166,10 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 
 #### 3.3.1 Distance between country and metonymy
 * Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว distribution ของ Euclidean distance ของสองจุดนี้ก็จะเป็น Gaussian เหมือนกัน โดยมีค่ามัชฌิม 20 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) ) `dis_distribution`<br>
-![dis_distribution](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png) <br>
+![dis_distribution_random](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png) <br>
 
 แต่ที่จริง การกระจายของ word vector ไม่เหมือน gaussian <br>
-![dis_words](https://user-images.githubusercontent.com/44984892/51267035-60989000-19ef-11e9-90d6-bc6dbe9bd03a.png)
-![dis_words_log](https://user-images.githubusercontent.com/44984892/51267032-5ffff980-19ef-11e9-82d8-9ecca5263009.png) <br>
+![dis_distribution](https://user-images.githubusercontent.com/44984892/51412364-e9edc500-1b9d-11e9-86fe-82396f84ec9c.png)
 
 ผลลัพธ์ : Euclidean distance between country and metonymy <br>
 <img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="600px" >
