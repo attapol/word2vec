@@ -88,9 +88,11 @@ cosine similarity distribution of random two word pair (500000 pairs)<br>
 ![cos_distribution](https://user-images.githubusercontent.com/44984892/51321833-67c6a900-1a96-11e9-95a9-18fcba024439.png) <br>
 Gaussian fitting : mean = 0.0305, SD = 0.107
 
-|จำนวนที่ similarity สูงกว่า 0.5 | ความน่าจะเป็น || จำนวนที่ similarity สูงกว่า 0.6 | ความน่าจะเป็น ||จำนวนที่ similarity สูงกว่า 0.7 | ความน่าจะเป็น |
-|--:|:-:|:-:|--:|:-:|:-:|--:|:-:|
-| 10702/5000000| 0.214%|| 6541/5000000| 0.131%|| 0/5000000| 0.000%|
+|x |จำนวนที่ similarity สูงกว่า x| ความน่าจะเป็น |
+|--:|--:|:-:|
+|0.5 | 24490 / 1000000| 2.4490%|
+|0.6 | 8907 / 5000000| 0.8907%|
+|0.7 | 0 / 5000000| 0.0000%|
 
 ## 3. Result: vector calculation
 ### 3.1 สมมติฐาน 1: metonymy is a parallel translation
