@@ -85,8 +85,9 @@ met.similar('ผู้ชาย',10)
 |สยาม |พารากอน |0.31013966 |
 
 cosine similarity distribution of random two word pair (500000 pairs)<br>
-![cos_distribution](https://user-images.githubusercontent.com/44984892/51321833-67c6a900-1a96-11e9-95a9-18fcba024439.png) <br>
-Gaussian fitting : mean = 0.0305, SD = 0.107
+![sim_distribution](https://user-images.githubusercontent.com/44984892/51410970-b2304e80-1b98-11e9-9fca-0d688584972d.png) <br>
+Gaussian fitting : mean = 0.1917, SD = 0.1257 <br>
+mean ไม่ใช่ 0 แสดงว่า vector เหล่านี้เป็น uneven distribution ในปริภูมิ 200 มิติ
 
 |x |จำนวนที่ similarity สูงกว่า x| ความน่าจะเป็น |
 |--:|--:|:-:|
