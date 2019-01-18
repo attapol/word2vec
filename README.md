@@ -145,8 +145,8 @@ where X: country, X': metonymy of country
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย simple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
-Result: detA (product of eigenvalue A<sub>i,i</sub>) = -1.174636213744117e-130 <br>
-cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.6225
+Result: detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.8057
 เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
 
 #### 3.2.2 Affine Transformation with full matrix
