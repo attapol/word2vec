@@ -145,7 +145,7 @@ Result: detA ~ 0 <br>
 cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
 อิทธิพลจาก parallel translation b ยังใหญ่ แต่น้อยลงนิดหน่อย เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
 
-เช่น ในข้อมูลไม่มี 'กังหันลม' ซึ่งเป็น metonym ของ 'เนเธอร์แลนด์'
+เช่น ในข้อมูลที่ใช้เพื่อ regression ไม่มีคำว่า 'กังหันลม' ซึ่งเป็น metonym ของ 'เนเธอร์แลนด์'
 แต่ 'เนเธอร์แลนด์' + ปลาดิบ' - 'ญี่ปุ่น' = 'หมีขาว', 'จิงโจ้', 'อาทิตย์อุทัย' ... โดย 'กังหันลม' ไม่ปรากฎ ส่วน ใช้ Affine Transformation แล้ว ได้พบเจอ ('กังหันลม', 0.4553275909584193) เพราะฉะนั้น เอาสองวิธี (parallel taranslation & Affine transformation) มารวามกันดีกว่า
 
 ### 3.3 Distance
