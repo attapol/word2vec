@@ -143,7 +143,8 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 
 Result: detA ~ 0 <br>
 cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
-เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A ก็ส่งผลกว่านิดหน่อย แต่ อิทธิพลจาก parallel translation b ยังใหญ่กว่า
+อิทธิพลจาก parallel translation b ยังใหญ่ แต่น้อยลงนิดหน่อย เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
+'เนเธอร์แลนด์' + ปลาดิบ' - 'ญี่ปุ่น' 
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
