@@ -172,7 +172,7 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 ![dis_distribution](https://user-images.githubusercontent.com/44984892/51412364-e9edc500-1b9d-11e9-86fe-82396f84ec9c.png)
 
 ผลลัพธ์ : Euclidean distance between country and metonymy <br>
-<img src="https://user-images.githubusercontent.com/44984892/51169912-aebe6e00-18df-11e9-8873-74bc772b6352.png" width="600px" >
+<img src="https://user-images.githubusercontent.com/44984892/51412426-202b4480-1b9e-11e9-98de-154b4b1435c2.png" width="600px" >
 
 distance ของ metonymization vector ประมาณ 30 
 * Wasserstein Embeddings 
