@@ -173,10 +173,12 @@ met2.similar('ผู้ชาย',10)
 </table>
 
 
-cosine similarity distribution of random two word pair (500000 pairs)<br>
-![sim_distribution](https://user-images.githubusercontent.com/44984892/51410970-b2304e80-1b98-11e9-9fca-0d688584972d.png) <br>
-Gaussian fitting : mean = 0.1917, SD = 0.1257 <br>
-mean ไม่ใช่ 0 แสดงว่า vector เหล่านี้เป็น uneven distribution ในปริภูมิ 200 มิติ
+cosine similarity distribution of random two word pair (CBOW & skip-gram)
+
+![sim_distribution_cbow](https://user-images.githubusercontent.com/44984892/51425715-5b675b00-1c12-11e9-8ce6-dd592632a4e8.png)
+![sim_distribution_skip](https://user-images.githubusercontent.com/44984892/51425749-c6b12d00-1c12-11e9-8a71-df22f8f19894.png)
+
+ในกรณี skip-gram ค่ามัฌชิมไม่ใช่ 0 แสดงว่า vector เหล่านี้เป็น uneven distribution ในปริภูมิ 200 มิติ
 
 |x |0.50 |0.52|0.54|0.56|0.58|0.60|0.62|0.64|0.66|0.68|0.70|
 |--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
