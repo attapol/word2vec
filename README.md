@@ -28,7 +28,7 @@ word2vec: `gensim.model.word2vec` (sg=1, size=200, min_count=5, window=15) <br>
 เพราะฉะนั้น ในปริภูมิ 200 มิติ สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5" (เกณฑ์ similarity ไม่เหมือนกับกรณี 2, 3 มิติที่เราคุ้นเคย )<br>
 แต่ต้องคำนึงถึง distribution จริงเป็นยังไง
 
-## 2. Result: similarity of words
+## 2. Result: similarity & distance of word pair
 <table>
 <tr>
   <th>CBOW</th>
@@ -172,13 +172,17 @@ met2.similar('ผู้ชาย',10)
 </tr>
 </table>
 
-
-cosine similarity distribution of random two word pair (CBOW & skip-gram)
+### cosine similarity distribution of random two word pair (CBOW & skip-gram)
 
 ![sim_distribution_cbow](https://user-images.githubusercontent.com/44984892/51425715-5b675b00-1c12-11e9-8ce6-dd592632a4e8.png)
 ![sim_distribution_skip](https://user-images.githubusercontent.com/44984892/51425749-c6b12d00-1c12-11e9-8a71-df22f8f19894.png)
 
 ในกรณี skip-gram ค่ามัฌชิมไม่ใช่ 0 แสดงว่า vector เหล่านี้เป็น uneven distribution ในปริภูมิ 200 มิติ
+
+### distance distribution of random two word pair (CBOW & skip-gram)
+
+![dis_distribution_cbow](https://user-images.githubusercontent.com/44984892/51425985-67edb280-1c16-11e9-95d7-3363d16a0077.png)
+![dis_distribution_skip](https://user-images.githubusercontent.com/44984892/51425987-67edb280-1c16-11e9-995d-fd9d715671ad.png)
 
 |word1 | word2 | similarity (CBOW) | similarity (skip-gram) | distance (CBOW) | similarity (skip-gram) |
 |:-:|:-:|--:|--:|--:|--:|
