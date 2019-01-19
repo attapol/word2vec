@@ -108,7 +108,7 @@ where X: country, X': metonymy of country
 2. (metonymy B') + (country A) - (metonymy A') = (country B) : metonymy B' - metonymization vector
 
 ##### 3.1.2.1 วิธี 1 ค้นหา metonymy
-|สูตร|CBOW |Ski-gram |
+|สูตร|CBOW |Skip-gram |
 |:-:|:-:|:-:|
 | 'เกาหลี' + ปลาดิบ' - 'ญี่ปุ่น' | ('กิมจิ', 0.7009077072143555) ... | ('กิมจิ', 0.7152968645095825) ... |
 | 'อังกฤษ' + 'ซามูไร' - 'ญี่ปุ่น' | ('ผู้ดี', 0.5545893311500549) ... | ('ผู้ดี', 0.6484468579292297) ... |
