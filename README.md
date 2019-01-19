@@ -3,7 +3,7 @@
 ## 1. Method
 หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
 เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 362985 บทความ (18/01/2562) <br>
-ใช้ ทั้ง skip-gram model และ CBOW แล้วเปรียบเทียบกัน (ฝึกโดยเนื้อหาบทความเท่านั้น)
+ใช้ ทั้ง CBOW และ skip-gram model แล้วเปรียบเทียบกัน (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
 ### 1.1 python toolkit
 tokenizer: `pythainlp.tokenize.word_tokenize` <br>
@@ -29,7 +29,17 @@ word2vec: `gensim.model.word2vec` (sg=1, size=200, min_count=5, window=15) <br>
 แต่ต้องคำนึงถึง distribution จริงเป็นยังไง
 
 ## 2. Result: similarity of words
-<pre>
+<table>
+<tr>
+  <th>CBOW</th>
+  <th>Skip-gram</th>
+</tr>
+<tr>
+  <td>
+    CBOW
+  </td>
+  <td>
+    <pre>
 met.similar('ปลาดิบ')
 ('อาทิตย์อุทัย', 0.7142832279205322)
 ('กิมจิ', 0.6960911750793457)
@@ -74,7 +84,11 @@ met.similar('ผู้ชาย',10)
 ('จีบ', 0.6446007490158081)
 ('เค้า', 0.6411833167076111)
 ('ชายหนุ่ม', 0.6373834609985352)
-</pre>
+    </pre>
+  </td>
+</tr>
+</table>
+
 
 cosine similarity distribution of random two word pair (500000 pairs)<br>
 ![sim_distribution](https://user-images.githubusercontent.com/44984892/51410970-b2304e80-1b98-11e9-9fca-0d688584972d.png) <br>
