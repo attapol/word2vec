@@ -266,9 +266,6 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 * Euclidean Distance -> แต่ละมิติต้องเป็น orthogonal basis แต่ word2vec ไม่เหมือนกับ SVD เพราะฉะนั้น ความชัดเจนน้อยลง ถ้าสุ่มเลือกสองจุดในปริภูมิ 200 มิติโดย Gaussian distribution แล้ว distribution ของ Euclidean distance ของสองจุดนี้ก็จะเป็น Gaussian เหมือนกัน โดยมีค่ามัชฌิม 20 ( -> [random_vector.py](https://github.com/nozomiyamada/word2vec/blob/master/random_vector.py) ) `dis_distribution`<br>
 ![dis_distribution_random](https://user-images.githubusercontent.com/44984892/51271873-419ffb00-19fb-11e9-9937-313c2e138307.png) <br>
 
-แต่ที่จริง การกระจายของ word vector ไม่เหมือน gaussian <br>
-![dis_distribution](https://user-images.githubusercontent.com/44984892/51412364-e9edc500-1b9d-11e9-86fe-82396f84ec9c.png)
-
 ผลลัพธ์ : Euclidean distance between country and metonymy <br>
 <img src="https://user-images.githubusercontent.com/44984892/51412426-202b4480-1b9e-11e9-98de-154b4b1435c2.png" width="600px" >
 
