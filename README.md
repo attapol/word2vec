@@ -2,8 +2,8 @@
 
 ## 1. Method
 หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
-เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 203624 บทความ (12/01/2562) <br>
-ใช้ skip-gram model (ฝึกโดยเนื้อหาบทความเท่านั้น)
+เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 362985 บทความ (18/01/2562) <br>
+ใช้ ทั้ง skip-gram model และ CBOW แล้วเปรียบเทียบกัน (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
 ### 1.1 python toolkit
 tokenizer: `pythainlp.tokenize.word_tokenize` <br>
@@ -25,7 +25,8 @@ word2vec: `gensim.model.word2vec` (sg=1, size=200, min_count=5, window=15) <br>
 |50 |50 / 499500 |0.01% | |
 |200 |0 / 499500 |< 0.0002% | |
 
-เพราะฉะนั้น ในปริภูมิ 200 มิติ สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5" แต่ distribution จริงอาจจะไม่เหมือนกับ Gaussian จึงต้องวิเคราะห์ใหม่ทีหลัง
+เพราะฉะนั้น ในปริภูมิ 200 มิติ สามารถคิดได้ว่า "มี similarity **ตั้ง** 0.5" แทนที่จะคิดว่า "มี similarity **แค่** 0.5" (เกณฑ์ similarity ไม่เหมือนกับกรณี 2, 3 มิติที่เราคุ้นเคย )<br>
+แต่ต้องคำนึงถึง distribution จริงเป็นยังไง
 
 ## 2. Result: similarity of words
 <pre>
