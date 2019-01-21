@@ -350,6 +350,10 @@ distance ของ metonymization vector : mean 3.2456
 
 ### 4.1 distribution of metonyms
 
+3D visualiztion (โดยใช้ PCA)
+
+![distribution_3d](https://user-images.githubusercontent.com/44984892/51478573-619a3a80-1dbe-11e9-9e53-2fb14da52380.png)
+
 ## 5. Problems
 * คำศัพท์บางคำหาไม่เจอโดยใช้วิธีนี้ เช่น คำว่า 'ช้าง' ซึ่งเป็นนามนัยของประเทศไทย อาจจะเป็นเพราะคำว่าข้างใช้ในบริบทธรรมดาด้วย ส่วนคำว่า 'ปลาดิบ' ไม่ค่อยปรากฏในความหมายดั้งเดิม (ปรากฏเฉพาะในกรณีพูดถึงประเทศญี่ปุ่น)
 * พูดถึง metonymy แล้ว ควรวิเคราะห์เชิง coginitive linguistics แต่ไม่รู้ว่าจะเชื่อมโยงกันได้อย่างไง ยกเว้นแนวคิด prototype
