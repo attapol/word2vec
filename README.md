@@ -1,9 +1,12 @@
 # word2vec : Metonymy of countries in ไทยรัฐ
 
 ## 1. Method
-หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
+หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning <br>
+จุดประสงค์มีสองข้อ
+* แสวงหาวิธีค้นหา metonymy โดยอัตโนมัต เพื่อประยุคกับ NLP
+* หา prototypical metonymy 
 เก็บข้อมูลมาจาก "ไทยรัฐ" ทั้งหมด 362985 บทความ (18/01/2562) <br>
-ใช้ ทั้ง CBOW และ skip-gram model แล้วเปรียบเทียบกัน (ฝึกโดยเนื้อหาบทความเท่านั้น)
+ใช้ ทั้ง CBOW และ skip-gram word2vec model แล้วเปรียบเทียบกัน (ฝึกโดยเนื้อหาบทความเท่านั้น)
 
 ### 1.1 python toolkit
 tokenizer: `pythainlp.tokenize.word_tokenize` <br>
