@@ -352,7 +352,8 @@ distance ของ metonymization vector : mean 3.2456
 
 3D visualiztion (โดยใช้ PCA)
 
-![distribution_3d](https://user-images.githubusercontent.com/44984892/51481298-23087e00-1dc6-11e9-9f79-94a9b1063b79.png)
+![distribution_3d_country](https://user-images.githubusercontent.com/44984892/51482080-0ec58080-1dc8-11e9-9d8e-57159022792c.png)
+![distribution_3d_metonymy](https://user-images.githubusercontent.com/44984892/51482078-0ec58080-1dc8-11e9-833b-acc8477deb7b.png)
 
 ## 5. Problems
 * คำศัพท์บางคำหาไม่เจอโดยใช้วิธีนี้ เช่น คำว่า 'ช้าง' ซึ่งเป็นนามนัยของประเทศไทย อาจจะเป็นเพราะคำว่าข้างใช้ในบริบทธรรมดาด้วย ส่วนคำว่า 'ปลาดิบ' ไม่ค่อยปรากฏในความหมายดั้งเดิม (ปรากฏเฉพาะในกรณีพูดถึงประเทศญี่ปุ่น)
