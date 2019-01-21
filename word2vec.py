@@ -8,7 +8,9 @@ import numpy as np
 from scipy.stats import norm
 import pandas as pd
 import matplotlib as mpl
-#font = {"family":"Ayuttaya"}
+#font = {"family":"TH Sarabun New"}
+#font = {"family":"Ayuthaya"}
+font = {"family":"Dejavu"}
 mpl.rc('font', **font)
 import matplotlib.pyplot as plt
 import pylab as plb
@@ -16,9 +18,6 @@ from pythainlp.tokenize import word_tokenize
 from sklearn.linear_model import LinearRegression
 lr = LinearRegression()
 
-def tokenizer(text):
-    word_list = word_tokenize(text)
-    return word_list
     
 def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokenized1.tsv'):
     """
@@ -38,7 +37,7 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     for line in lines[start_index: end_index]:
         if line[0] not in id_list:
             # ถ้าใช้ headline line[1], description line[2] 
-            new_line = [line[0], '|'.join(tokenizer(line[-1]))]
+            new_line = [line[0], '|'.join(word_tokenize(line[-1]))]
             writer.writerow(new_line)
     
     open_file.close()
@@ -55,38 +54,35 @@ def mahalanobis(vectors):
     mahal_dis = list(map(lambda vec: np.sqrt(np.dot(np.dot(vec, inv_matrix), vec.T)), deviation_vec))
     return mahal_dis
 
-def make_model(open_tsv='tokenized1.tsv', save_name='article.model'):
+def make_model(open_tsv='tokenized.tsv', save_name='article1.model'):
     file = open(open_tsv, 'r', encoding='utf-8')
     lines = list(csv.reader(file, delimiter='\t'))
     word_list = [line[1].split('|') for line in lines]
-    model = word2vec.Word2Vec(word_list, size=200, min_count=5, window=15)
+    model = word2vec.Word2Vec(word_list, sg=0, size=200, min_count=5, window=15)
     model.save(save_name)
 
     
 class Metonymy:
 
-    def __init__(self, model='article.model'):
+    def __init__(self, model):
         self.model = word2vec.Word2Vec.load(model)
         self.vocab = list(self.model.wv.vocab.keys())
-        
+    
+    # one word > vector
     def vec(self, word):
         return self.model.wv[word]
     
+    # search most similar n words
     def similar(self, word, n=20):
         results = self.model.wv.most_similar(positive=[word], topn=n)
         for result in results:
            print(result)
     
+    # calculate similarity & distance of two words
     def two_word(self, word1, word2):
         return cos_sim(met.model.wv[word1], met.model.wv[word2]), np.linalg.norm(met.model.wv[word1] - met.model.wv[word2])
-    
-    def dis_two_word_random(self):
-        words = random.sample(self.vocab, 2)
-        #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
-            #words = random.sample(self.vocab, 2)
-        #print(words)
-        return (np.linalg.norm(met.model.wv[words[0]] - met.model.wv[words[1]]))
-    
+
+    # return similarity of random two words
     def sim_two_word_random(self):
         words = random.sample(self.vocab, 2)
         #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
@@ -94,32 +90,12 @@ class Metonymy:
         #print(words)
         return (cos_sim(met.model.wv[words[0]],met.model.wv[words[1]]))
     
-    def dis_words(self, num_of_pair, log=False):
-        dis_list = [self.dis_two_word_random() for i in range(num_of_pair)]
+    # plot distributions of similarity
+    def sim_words(self, k, log=False):
+        sim_list = [self.sim_two_word_random() for i in range(k)]
+
         
-        plt.hist(dis_list, bins=240, range=(0,60))
-        plt.xlabel('Euclidean distance')
-        plt.ylabel('numbers')
-        if log == True:
-            plt.yscale('log')
-        plt.title('distances of random {} word pairs (bin=0.25)'.format(num_of_pair))
-        plt.show()
-        
-    def sim_words(self, num_of_pair, log=False):
-        sim_list = [self.sim_two_word_random() for i in range(num_of_pair)]
-        
-        count5 = 0
-        count6 = 0
-        count7 = 0
-        for i in sim_list:
-            if i >= 0.5:
-                count5 += 1
-            if i >= 0.6:
-                count6 +=1
-            if i >= 0.7:
-                count6 +=1
-        print(count5, count6, count7)
-        
+        """
         x = np.linspace(-1,1,201)
         param = norm.fit(sim_list)
         pdf_fitted = norm.pdf(x,loc=param[0], scale=param[1])
@@ -129,15 +105,42 @@ class Metonymy:
         plt.figure
         plt.title('Normal distribution')
         plt.plot(x, pdf_fitted, 'r-')
+        """
         
-        plt.hist(sim_list, bins=200, range=(-1,1), density=1)
+        ret = plt.hist(sim_list, bins=200, range=(-1,1))
         plt.xlabel('cosine similarity')
         
         if log == True:
             plt.yscale('log')
-        plt.title('cosine similarity of random {} word pairs (bin=0.01)'.format(num_of_pair))
+        plt.title('cosine similarity of random {} word pairs (bin=0.01)'.format(k))
+        plt.show()
+        new_list = [0]
+        for i in ret[0][1:]:
+            new_list.append(new_list[-1]+i)
+        for i,j in zip(ret[1],new_list):
+            print(i,(k-j)/k*100)
+    
+    # return distance of random two words
+    def dis_two_word_random(self):
+        words = random.sample(self.vocab, 2)
+        #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
+            #words = random.sample(self.vocab, 2)
+        #print(words)
+        return (np.linalg.norm(met.model.wv[words[0]] - met.model.wv[words[1]]))
+    
+    # plot distributions of distance    
+    def dis_words(self, num_of_pair, log=False):
+        dis_list = [self.dis_two_word_random() for i in range(num_of_pair)]
+        
+        plt.hist(dis_list, bins=400, range=(0,10))
+        plt.xlabel('Euclidean distance')
+        plt.ylabel('numbers')
+        if log == True:
+            plt.yscale('log')
+        plt.title('distances of random {} word pairs (bin=0.025)'.format(num_of_pair))
         plt.show()
         
+    # vector calculation
     def calc(self, posi, nega, n=20):
         results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
         for result in results:
@@ -162,10 +165,10 @@ class Metonymy:
         
         label = [line[0] for line in lines]
         
-        vectors = np.array([line[2:] for line in lines])
+        vectors = np.array([line[2:] for line in lines],dtype=float)
         dis = np.linalg.norm(vectors, axis=1)
         corr = np.corrcoef(vectors)
-        print(corr)
+        print(np.mean(dis))
         
         plt.barh(np.arange(len(label)), dis, tick_label=label)
         plt.xlabel('Euclidean distance between metonymy and country')
@@ -183,7 +186,8 @@ class Metonymy:
         country_mahal = mahalanobis(np.array(country_vectors,dtype=float))
         
         return metonymy_mahal, country_mahal
-        
+    
+    # similarity of each metonymiztion vector    
     def vec_sim(self, open_tsv='metonymy_vector.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
         lines = list(csv.reader(open_file, delimiter='\t'))
@@ -214,7 +218,7 @@ class Metonymy:
         
         
         print('similarity of metonymy vector and coefficient b', cos_sim(mean_metonymize,intercept_list))
-        return np.linalg.det(np.diag(coef_list)), coef_list , mean_metonymize
+        return np.linalg.det(np.diag(coef_list)), mean_metonymize
     
     def affine_multiple(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
@@ -233,8 +237,16 @@ class Metonymy:
             coef_list.append(lr.coef_)
             intercept_list.append(lr.intercept_)
         
+        self.A = np.array(coef_list)
         self.b = intercept_list
         print('similarity of metonymy vector and coefficient b', cos_sim(self.mean_metonymize,intercept_list))
         return np.linalg.det(np.array(coef_list))
+    
+    def apply_affine(self, country):
+        map_vec = np.dot(self.A, self.model.wv[country]) + self.b
+        return map_vec
+
 # instantiaion
-met = Metonymy()
+met1 = Metonymy('article.model')
+met2 = Metonymy('article2.model')
+
