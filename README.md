@@ -1,4 +1,4 @@
-# word2vec : Metonymies of countries in ไทยรัฐ
+# word2vec : Metonyms of countries in ไทยรัฐ
 
 ## 1. Method
 หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
@@ -184,7 +184,9 @@ met2.similar('ผู้ชาย',10)
 ![dis_distribution_cbow](https://user-images.githubusercontent.com/44984892/51425985-67edb280-1c16-11e9-95d7-3363d16a0077.png)
 ![dis_distribution_skip](https://user-images.githubusercontent.com/44984892/51425987-67edb280-1c16-11e9-995d-fd9d715671ad.png)
 
-|word1 | word2 | similarity (CBOW) | similarity (skip-gram) | distance (CBOW) | similarity (skip-gram) |
+สามารถสังเกตได้ว่า skip-gram ให้ vector เบียดกว่าในปริภูมิ 200 มิติ
+
+|word1 | word2 | similarity (CBOW) | similarity (skip-gram) | distance (CBOW) | distance (skip-gram) |
 |:-:|:-:|--:|--:|--:|--:|
 |สวย|โรงเรียน|-0.0428314| 0.1545247 |53.877216 | 3.7336485 |
 |ไป |อร่อย |0.04088692|0.17561817 |50.424267|3.8372965 |
@@ -203,7 +205,7 @@ where X: country, X': metonymy of country
 1. (country B) + (metonymy A') - (country A) = (metonymy B') : country B + metonymization vector
 2. (metonymy B') + (country A) - (metonymy A') = (country B) : metonymy B' - metonymization vector
 
-##### 3.1.2.1 วิธี 1 ค้นหา metonymy
+##### 3.1.2.1 วิธี 1 ค้นหา metonym
 |สูตร|CBOW |Skip-gram |
 |:-:|:-:|:-:|
 | 'เกาหลีใต้' + ปลาดิบ' - 'ญี่ปุ่น' | ('อาทิตย์อุทัย', 0.6295)<br>('อิเหนา', 0.6137)<br>('กิมจิ', 0.6110) ... | ('โสมขาว', 0.7123)<br>('กิมจิ', 0.6929)<br>('โสมแดง', 0.5844) ... |
@@ -214,12 +216,12 @@ where X: country, X': metonymy of country
 ##### 3.1.2.2 วิธี 2 ค้นหา country
 |สูตร|CBOW |Skip-gram |
 |:-:|:-:|:-:|
-|'มะกะโรนี' + 'ญี่ปุ่น' - 'ปลาดิบ' | ('อิตาลี', 0.5933549404144287) ... | ('อิตาลี', 0.7145664691925049) ... |
-|'จิงโจ้' + 'เกาหลีใต้' - 'กิมจิ' | ('ไต้หวัน', 0.5936126708984375) <br> ('ออสเตรเลีย', 0.5897310376167297) ... | ('ออสเตรเลีย', 0.6734793186187744) ... |
-|'กีวี' + 'จีน' - 'มังกร' | ('นิวซีแลนด์', 0.5326523780822754) ... | ('นิวซีแลนด์', 0.6551463603973389) ... |
-|'อิเหนา' + 'ญี่ปุ่น' - 'ซามูไร' | ('สิงคโปร์', 0.626672625541687) <br> ('อินโดนีเซีย', 0.6032019853591919) ... | ('อินโดนีเซีย', 0.7172484397888184) ... | 
-|'กระทิง' + 'เกาหลีใต้' - 'กิมจิ' | ('สเปน', 0.4568285346031189) ... | |
-|'น้ำหอม' + 'เกาหลีใต้' - 'กิมจิ' | ('ฝรั่งเศส', 0.42910343408584595) .. | |.
+|'มะกะโรนี' + 'ญี่ปุ่น' - 'ปลาดิบ' | ('อิตาลี', 0.5934)<br>('อังกฤษ', 0.5056)<br>('เอซี มิลาน', 0.4917) ... |('อิตาลี', 0.7146)<br>('อังกฤษ', 0.6199)<br>('ตุรกี', 0.5956) ... |
+|'จิงโจ้' + 'เกาหลีใต้' - 'กิมจิ' | ('ไต้หวัน', 0.5936)<br>('ออสเตรเลีย', 0.5897)<br>('อินโดนีเซีย', 0.57834) ... | ('ออสเตรเลีย', 0.6735)<br>('เคนยา', 0.5914)<br>('เปรู', 0.5903) ... |
+|'กีวี' + 'จีน' - 'มังกร' | ('นิวซีแลนด์', 0.5327)<br>('ญี่ปุ่น', 0.5150)<br>('ฮ่องกง', 0.5019) ... | ('นิวซีแลนด์', 0.6551)<br>('ออสเตรเลีย', 0.5848)<br>('ไต้หวัน', 0.5774) ... |
+|'อิเหนา' + 'ญี่ปุ่น' - 'ซามูไร' | ('สิงคโปร์', 0.6267)<br>('เวียดนาม', 0.6051)<br>('อินโดนีเซีย', 0.6032) ... | ('อินโดนีเซีย', 0.7172)<br>('สิงคโปร์', 0.6183)<br>('ฟิลิปปินส์', 0.5986) ... | 
+|'กระทิง' + 'เกาหลีใต้' - 'กิมจิ' |('สเปน', 0.5052)<br>('เยอรมนี', 0.4368)<br>('อิตาลี', 0.4238) ... |('สเปน', 0.5557)<br>('บราซิล', 0.4902)<br>('อุรุกวัย', 0.4894) ... |
+|'น้ำหอม' + 'เกาหลีใต้' - 'กิมจิ' | ('เยอรมนี', 0.5452)<br>('ฝรั่งเศส', 0.5285)<br>('เนเธอร์แลนด์', 0.4940) ... |('ฝรั่งเศส', 0.6040)<br>('บราซิล', 0.5664)<br>('ปารีส', 0.5271) ... |
 
 #### 3.1.3 Explanation by classical semantics (semantic features) 
 |คำ |ความเป็นนามนัย |ความเป็นญี่ปุ่น |ความเป็นเกาหลี | 
@@ -245,21 +247,46 @@ where X: country, X': metonymy of country
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย simple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
-Result: detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
+Result (skip-gram): detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
 cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.8057
-เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
+ในกรณีนี้ ไม่มีค่าใดที่มากกว่า 1 ใน A เพราะฉะนั้น สามารถสรุปได้ว่า metonymization ไม่ใช่ parallel translation อย่างเดียว แต่ similarity ยังมี 0.8 metonymization จึงเกิดจาก parallel translation b เป็นหลัก
 
 #### 3.2.2 Affine Transformation with full matrix
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" title="\begin{pmatrix} x_1'\\x_2'\\\vdots\\x_{200}'\\1 \end{pmatrix} = \begin{pmatrix} A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\ A_{2,1}&A_{2,2}&\cdots&A_{2,200}& b_2\\ \vdots&\vdots&\ddots&\vdots&\vdots\\ A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\ 0&0&\cdots&0&1 \end{pmatrix} \begin{pmatrix} x_1\\x_2\\\vdots\\x_{200}\\1 \end{pmatrix}" /></a><br>
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย multiple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" title="x_i'=A_{i,1}x_1+A_{i,2}x_2+\cdots+A_{i,200}x_{200}+b_i" /></a>
 
-Result: detA ~ 0 <br>
-cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
-อิทธิพลจาก parallel translation b ยังใหญ่ แต่น้อยลงนิดหน่อย เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
+Result (skip-gram): detA ~ 0 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = -0.14217
+อิทธิพลจาก parallel translation b น้อยลง เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
 
-เช่น ในข้อมูลที่ใช้เพื่อ regression ไม่มีคำว่า 'กังหันลม' ซึ่งเป็น metonym ของ 'เนเธอร์แลนด์'
-แต่ 'เนเธอร์แลนด์' + ปลาดิบ' - 'ญี่ปุ่น' = 'หมีขาว', 'จิงโจ้', 'อาทิตย์อุทัย' ... โดย 'กังหันลม' ไม่ปรากฎ ส่วน ใช้ Affine Transformation แล้ว ได้พบเจอ ('กังหันลม', 0.4553275909584193) เพราะฉะนั้น เอาสองวิธี (parallel taranslation & Affine transformation) มารวามกันดีกว่า
+ผลลัพธ์ที่เปรียบเทียบ "country + mean metonymization vector" กับ "full matrix Affine Transfomation" เป็นดังนี้
+
+|country : metonym | + mean metonymization vector | Affine Transformation (diag matrix) | Affine Transformation (full matrix) |
+|:-:|:-:|:-:|:-:|
+|ญี่ปุ่น : ปลาดิบ | 0.814376260782165 | 0.8309753576830674 | 0.758601779183857 |
+|ญี่ปุ่น : ซามูไร | 0.7398626506470664 | 0.7523959310138825 | 0.823747168402788 |
+|ญี่ปุ่น : นินจา | 0.4485568436522527 |0.44680430519498154 | 0.7408583027819111|
+|ญี่ปุ่น : อาทิตย์อุทัย |0.7926451916486672 | 0.8039604948178302 | 0.7973922129586257 |
+|จีน : มังกร |0.6448982167504311 | 0.6788160962580067 | 0.9996140535040609 |
+|เกาหลี : กิมจิ |0.7844103622475953 |0.8175731068442497 | 0.9991522213997927 |
+|เกาหลีเหนือ : โสมแดง |0.8672777197761677 | 0.8670044449078599 | 0.9993399396725856 |
+|เกาหลีใต้ : โสมขาว |0.8487338701615814 | 0.8537188826579071 | 0.9992611952491016 |
+|อังกฤษ : ผู้ดี |0.8062117758554058 | 0.8228773867761392 | 0.9984084064099905 |
+|ตุรกี : ไก่งวง |0.6188068272787861 | 0.6554135834169289 | 0.999741675968432 |
+|ออสเตรเลีย : จิงโจ้ |0.7708969496916427 | 0.7887867506106588 | 0.9996214946014829 |
+
+mean metonymization vector กับ diagonal matrix Affine transformation ไม่ค่อยต่างกัน ส่วน full matrix Affine transformation ในกรณี 'ญี่ปุ่น' ข้อมูลที่ใช้ไม่ใช่ one-to-one mapping เพราะฉะนั้น similarity ก็ประมาณ 0.7 - 0.8 แต่ถ้า metonymy เป็น one-to-one mapping ก็จะได้ similarity ที่มากกว่า 0.99 
+แต่พอใช้ข้อมูลที่ไม่อยู่ใน list ได้ผลที่ไม่ดี
+
+|country : metonym | mean metonymization vector | Affine Transformation (diag matrix) | Affine Transformation (full matrix) |
+|:-:|:-:|:-:|:-:|
+|อียิปต์ : มัมมี่ | 0.6953887445803948 | 0.6617337737362334 |  -0.09990733670975752 |
+|เยอรมัน : เบียร์ | 0.49053095957711806 | 0.4903473733385831 | 0.13036258688194893 |
+|อเมริกา : นกอินทรี |0.3451728274883405 | 0.3868838186755263 | 0.0802828885144199 |
+
+นี่คือ  **overfitting** เพราะ similarity เกือบ 0 <br>
+เพราะฉะนั้น การใช้แค่ parallel translation vector อย่างเดียว หรือ diagonal matrix Affine transformation น่าจะสามารถ detect metonym ได้ดีกว่า
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
@@ -274,19 +301,19 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 distance ของ metonymization vector : mean 3.2456
 * Wasserstein Embeddings 
 
-#### 3.3.2 Distance among metonymies (or countries)
+#### 3.3.2 Distance among metonyms (or countries)
 
 * ~~Mahalanobis Distance -> เพื่อเปรียบเทียบทั้ง metonymy และสามารถหา prototype ที่มีความนามนัยสูงที่สุดได้ แต่ต้องสมมติการกระจายเป็น Gaussian~~ <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" title="N(\vec{x}|\vec{\mu},\Sigma) = \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}} \exp \left[ -\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu}) \right]" /></a> <br>
 ใช้ไม่ได้ เพราะต้องเป็นแบบ **จำนวนข้อมูล > จำนวนมิติ (full rank)** ไม่อย่างนั้น หา inverse matrix ของ covariance matrix ไม่ได้
 
-* k-means : clustering metonymies into subtypes 
+* k-means : clustering metonyms into subtypes 
 
 * Poincare Embeddings
 
 ### 3.4 Canonical Correlation Analysis
 
-## 4. รายชื่อ metonymy ที่พบเจอใน "ไทยรัฐ"
+## 4. รายชื่อ metonym ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย |
 |:-:|:--|
 |ญี่ปุ่น  |ปลาดิบ, ซามูไร, นินจา, อาทิตย์อุทัย |
