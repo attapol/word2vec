@@ -277,7 +277,15 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 |ออสเตรเลีย : จิงโจ้ |0.7708969496916427 | 0.9996214946014829 |
 
 ในกรณี 'ญี่ปุ่น' ข้อมูลที่ใช้ไม่ใช่ one-to-one mapping เพราะฉะนั้น similarity ก็ประมาณ 0.7 - 0.8 ส่วน metonymy ที่เป็น one-to-one mapping ได้ similarity ที่มากกว่า 0.99 
-แต่พอใช้ข้อมูลที่ไม่อยู่ใน
+แต่พอใช้ข้อมูลที่ไม่อยู่ใน list ไม่ได้ผลที่ดี
+|country : metonym | mean metonymization vector | Affine Transformation |
+|:-:|:-:|:-:|
+|อียิปต์ : มัมมี่ | 0.6953887445803948 | -0.09990733670975752 |
+|เยอรมัน : เบียร์ | 0.49053095957711806 | 0.13036258688194893 |
+|อเมริกา : นกอินทรี |0.3451728274883405 | 0.0802828885144199 |
+
+นี่คือ  **overfitting** เพราะ Affine Transformation แล้ว similarity เกือบ 0 <br>
+เพราะฉะนั้น การใช้แค่ parallel translation vector อย่างเดียวน่าจะสามารถ detect metonym ได้ดีกว่า
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
