@@ -276,6 +276,8 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 |ตุรกี : ไก่งวง |0.6188068272787861 | 0.999741675968432 |
 |ออสเตรเลีย : จิงโจ้ |0.7708969496916427 | 0.9996214946014829 |
 
+ในกรณี 'ญี่ปุ่น' ข้อมูลที่ใช้ไม่ใช่ one-to-one mapping เพราะฉะนั้น similarity ก็ประมาณ 0.7 - 0.8 ส่วน metonymy ที่เป็น one-to-one mapping ได้ similarity ที่มากกว่า 0.99 แสดงว่า regression model นี้พอสมควร
+
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
 
