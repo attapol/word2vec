@@ -1,4 +1,4 @@
-# word2vec : Metonymies of countries in ไทยรัฐ
+# word2vec : Metonyms of countries in ไทยรัฐ
 
 ## 1. Method
 หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
@@ -205,7 +205,7 @@ where X: country, X': metonymy of country
 1. (country B) + (metonymy A') - (country A) = (metonymy B') : country B + metonymization vector
 2. (metonymy B') + (country A) - (metonymy A') = (country B) : metonymy B' - metonymization vector
 
-##### 3.1.2.1 วิธี 1 ค้นหา metonymy
+##### 3.1.2.1 วิธี 1 ค้นหา metonym
 |สูตร|CBOW |Skip-gram |
 |:-:|:-:|:-:|
 | 'เกาหลีใต้' + ปลาดิบ' - 'ญี่ปุ่น' | ('อาทิตย์อุทัย', 0.6295)<br>('อิเหนา', 0.6137)<br>('กิมจิ', 0.6110) ... | ('โสมขาว', 0.7123)<br>('กิมจิ', 0.6929)<br>('โสมแดง', 0.5844) ... |
@@ -291,19 +291,19 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 distance ของ metonymization vector : mean 3.2456
 * Wasserstein Embeddings 
 
-#### 3.3.2 Distance among metonymies (or countries)
+#### 3.3.2 Distance among metonyms (or countries)
 
 * ~~Mahalanobis Distance -> เพื่อเปรียบเทียบทั้ง metonymy และสามารถหา prototype ที่มีความนามนัยสูงที่สุดได้ แต่ต้องสมมติการกระจายเป็น Gaussian~~ <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?N(\vec{x}|\vec{\mu},\Sigma)&space;=&space;\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}&space;\exp&space;\left[&space;-\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})&space;\right]" title="N(\vec{x}|\vec{\mu},\Sigma) = \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}} \exp \left[ -\frac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu}) \right]" /></a> <br>
 ใช้ไม่ได้ เพราะต้องเป็นแบบ **จำนวนข้อมูล > จำนวนมิติ (full rank)** ไม่อย่างนั้น หา inverse matrix ของ covariance matrix ไม่ได้
 
-* k-means : clustering metonymies into subtypes 
+* k-means : clustering metonyms into subtypes 
 
 * Poincare Embeddings
 
 ### 3.4 Canonical Correlation Analysis
 
-## 4. รายชื่อ metonymy ที่พบเจอใน "ไทยรัฐ"
+## 4. รายชื่อ metonym ที่พบเจอใน "ไทยรัฐ"
 |ประเทศ  |นามนัย |
 |:-:|:--|
 |ญี่ปุ่น  |ปลาดิบ, ซามูไร, นินจา, อาทิตย์อุทัย |
