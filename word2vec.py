@@ -216,7 +216,8 @@ class Metonymy:
             coef_list.append(regression[0])
             intercept_list.append(regression[1])
         
-        
+        self.A_diag = np.diag(coef_list)
+        self.b_diag = intercept_list
         print('similarity of metonymy vector and coefficient b', cos_sim(mean_metonymize,intercept_list))
         return np.linalg.det(np.diag(coef_list)), mean_metonymize
     
@@ -227,7 +228,7 @@ class Metonymy:
         metonymy_vectors = np.array([self.model.wv[line[0]] for line in lines], dtype=float)
         country_vectors = np.array([self.model.wv[line[1]] for line in lines], dtype=float)
         
-        self.mean_metonymize = np.mean(metonymy_vectors - country_vectors, axis=0)
+        self.mean_met_vec = np.mean(metonymy_vectors - country_vectors, axis=0)
         
         coef_list = []
         intercept_list = []
@@ -237,15 +238,34 @@ class Metonymy:
             coef_list.append(lr.coef_)
             intercept_list.append(lr.intercept_)
         
-        self.A = np.array(coef_list)
-        self.b = intercept_list
-        print('similarity of metonymy vector and coefficient b', cos_sim(self.mean_metonymize,intercept_list))
+        self.A_full = np.array(coef_list)
+        self.b_full = intercept_list
+        print('similarity of metonymy vector and coefficient b', cos_sim(self.mean_met_vec,intercept_list))
         return np.linalg.det(np.array(coef_list))
     
-    def apply_affine(self, country):
-        map_vec = np.dot(self.A, self.model.wv[country]) + self.b
+    def apply_affine_diag(self, country):
+        map_vec = np.dot(self.A_diag, self.model.wv[country]) + self.b_diag
         return map_vec
+    
+    def apply_affine_full(self, country):
+        map_vec = np.dot(self.A_full, self.model.wv[country]) + self.b_full
+        return map_vec
+    
+    def compare_affine(self,country,metonym):
+        print('+ mean vec: {}'.format(cos_sim(self.vec(country)+self.mean_met_vec, met2.vec(metonym))))
+        print('diag affine: {}'.format(cos_sim(self.apply_affine_diag(country), self.vec(metonym))))
+        print('full affine: {}'.format(cos_sim(self.apply_affine_full(country), self.vec(metonym))))
 
+    def compare_all(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        for line in lines:
+            print(line[1]+' : '+line[0])
+            self.compare_affine(line[1],line[0])
+        
+        
+        
 # instantiaion
 met1 = Metonymy('article.model')
 met2 = Metonymy('article2.model')
