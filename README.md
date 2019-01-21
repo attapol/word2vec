@@ -277,7 +277,8 @@ cosine similarity of "mean metonymization vector" and "parallel translation b" =
 |ออสเตรเลีย : จิงโจ้ |0.7708969496916427 | 0.9996214946014829 |
 
 ในกรณี 'ญี่ปุ่น' ข้อมูลที่ใช้ไม่ใช่ one-to-one mapping เพราะฉะนั้น similarity ก็ประมาณ 0.7 - 0.8 ส่วน metonymy ที่เป็น one-to-one mapping ได้ similarity ที่มากกว่า 0.99 
-แต่พอใช้ข้อมูลที่ไม่อยู่ใน list ไม่ได้ผลที่ดี
+แต่พอใช้ข้อมูลที่ไม่อยู่ใน list ได้ผลที่ไม่ดี
+
 |country : metonym | mean metonymization vector | Affine Transformation |
 |:-:|:-:|:-:|
 |อียิปต์ : มัมมี่ | 0.6953887445803948 | -0.09990733670975752 |
