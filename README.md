@@ -184,7 +184,9 @@ met2.similar('ผู้ชาย',10)
 ![dis_distribution_cbow](https://user-images.githubusercontent.com/44984892/51425985-67edb280-1c16-11e9-95d7-3363d16a0077.png)
 ![dis_distribution_skip](https://user-images.githubusercontent.com/44984892/51425987-67edb280-1c16-11e9-995d-fd9d715671ad.png)
 
-|word1 | word2 | similarity (CBOW) | similarity (skip-gram) | distance (CBOW) | similarity (skip-gram) |
+สามารถสังเกตได้ว่า skip-gram ให้ vector เบียดกว่าในปริภูมิ 200 มิติ
+
+|word1 | word2 | similarity (CBOW) | similarity (skip-gram) | distance (CBOW) | distance (skip-gram) |
 |:-:|:-:|--:|--:|--:|--:|
 |สวย|โรงเรียน|-0.0428314| 0.1545247 |53.877216 | 3.7336485 |
 |ไป |อร่อย |0.04088692|0.17561817 |50.424267|3.8372965 |
