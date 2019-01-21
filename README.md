@@ -1,4 +1,4 @@
-# word2vec : Metonyms of countries in ไทยรัฐ
+# word2vec : Metonymy of countries in ไทยรัฐ
 
 ## 1. Method
 หา correspondence ระหว่างประเทศกับนามนัย (metonymy) โดยใช้ deep learning (word2vec) <br>
@@ -7,7 +7,7 @@
 
 ### 1.1 python toolkit
 tokenizer: `pythainlp.tokenize.word_tokenize` <br>
-word2vec: `gensim.model.word2vec` (sg=1, size=200, min_count=5, window=15) <br>
+word2vec: `gensim.model.word2vec` (sg=0,1(CBOW, skip-gram), size=200, min_count=5, window=15) <br>
 
 ### 1.2 cosine similarity 
 วัดความคล้ายคลึงโดยใช้ cosine similarity <br>
