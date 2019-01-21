@@ -247,21 +247,34 @@ where X: country, X': metonymy of country
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย simple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
-Result: detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
+Result (skip-gram): detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
 cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.8057
-เพราะฉะนั้น ตีความได้ว่า ถ้าใช้สมมติฐานนี้ matrix A เกือบไม่ส่งผล และ metonymization จะเกิดจาก parallel translation b เป็นหลัก (แต่อาจจะมีมิติที่ส่งผลมากกว่ามิติอื่นก็ได้ ต้องวิเคราะห์สัมประสิทธิ์ของ A)
+ในกรณีนี้ ไม่มีค่าใดที่มากกว่า 1 ใน A เพราะฉะนั้น สามารถสรุปได้ว่า metonymization ไม่ใช่ parallel translation อย่างเดียว แต่ similarity ยังมี 0.8 metonymization จึงเกิดจาก parallel translation b เป็นหลัก
 
 #### 3.2.2 Affine Transformation with full matrix
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{pmatrix}&space;x_1'\\x_2'\\\vdots\\x_{200}'\\1&space;\end{pmatrix}&space;=&space;\begin{pmatrix}&space;A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\&space;A_{2,1}&A_{2,2}&\cdots&A_{2,200}&&space;b_2\\&space;\vdots&\vdots&\ddots&\vdots&\vdots\\&space;A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\&space;0&0&\cdots&0&1&space;\end{pmatrix}&space;\begin{pmatrix}&space;x_1\\x_2\\\vdots\\x_{200}\\1&space;\end{pmatrix}" title="\begin{pmatrix} x_1'\\x_2'\\\vdots\\x_{200}'\\1 \end{pmatrix} = \begin{pmatrix} A_{1,1}&A_{1,2}&\cdots&A_{1,200}&b_1\\ A_{2,1}&A_{2,2}&\cdots&A_{2,200}& b_2\\ \vdots&\vdots&\ddots&\vdots&\vdots\\ A_{200,1}&A_{200,2}&\cdots&A_{200,200}&b_{200}\\ 0&0&\cdots&0&1 \end{pmatrix} \begin{pmatrix} x_1\\x_2\\\vdots\\x_{200}\\1 \end{pmatrix}" /></a><br>
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย multiple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,1}x_1&plus;A_{i,2}x_2&plus;\cdots&plus;A_{i,200}x_{200}&plus;b_i" title="x_i'=A_{i,1}x_1+A_{i,2}x_2+\cdots+A_{i,200}x_{200}+b_i" /></a>
 
-Result: detA ~ 0 <br>
-cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.2449
-อิทธิพลจาก parallel translation b ยังใหญ่ แต่น้อยลงนิดหน่อย เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
+Result (skip-gram): detA ~ 0 <br>
+cosine similarity of "mean metonymization vector" and "parallel translation b" = -0.14217
+อิทธิพลจาก parallel translation b น้อยลง เพราะฉะนั้น ถ้าใช้ full matrix A อาจจะค้นหา metonyms ได้ดีกว่า <br>
 
-เช่น ในข้อมูลที่ใช้เพื่อ regression ไม่มีคำว่า 'กังหันลม' ซึ่งเป็น metonym ของ 'เนเธอร์แลนด์'
-แต่ 'เนเธอร์แลนด์' + ปลาดิบ' - 'ญี่ปุ่น' = 'หมีขาว', 'จิงโจ้', 'อาทิตย์อุทัย' ... โดย 'กังหันลม' ไม่ปรากฎ ส่วน ใช้ Affine Transformation แล้ว ได้พบเจอ ('กังหันลม', 0.4553275909584193) เพราะฉะนั้น เอาสองวิธี (parallel taranslation & Affine transformation) มารวามกันดีกว่า
+ผลลัพธ์ที่เปรียบเทียบ "country + mean metonymization vector" กับ "full matrix Affine Transfomation" เป็นดังนี้
+
+|country : metonym | mean metonymization vector | Affine Transformation |
+|:-:|:-:|:-:|
+|ญี่ปุ่น : ปลาดิบ | 0.814376260782165 | 0.758601779183857 |
+|ญี่ปุ่น : ซามูไร | 0.7398626506470664 | 0.823747168402788 |
+|ญี่ปุ่น : นินจา | 0.4485568436522527 |0.7408583027819111|
+|ญี่ปุ่น : อาทิตย์อุทัย |0.7926451916486672 | 0.7973922129586257 |
+|จีน : มังกร |0.6448982167504311 | 0.9996140535040609 |
+|เกาหลี : กิมจิ |0.7844103622475953 | 0.9991522213997927 |
+|เกาหลีเหนือ : โสมแดง |0.8672777197761677 | 0.9993399396725856 |
+|เกาหลีใต้ : โสมขาว |0.8487338701615814 | 0.9992611952491016 |
+|อังกฤษ : ผู้ดี |0.8062117758554058 | 0.9984084064099905 |
+|ตุรกี : ไก่งวง |0.6188068272787861 | 0.999741675968432 |
+|ออสเตรเลีย : จิงโจ้ |0.7708969496916427 | 0.9996214946014829 |
 
 ### 3.3 Distance
 เพื่อที่จะวิเคราะห์ความสัมพันธ์ระหว่างประเทศกับนามนัย การวัด distance อาจจะมีประโยชน์ แต่ต้องเลือก distance ที่เหมาะสม <br>
