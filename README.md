@@ -234,8 +234,13 @@ where X: country, X': metonymy of country
 ในกรณีนี้ คำนวณแต่ละสัมประสิทธิ์ได้โดย simple linear regression <br>
 <a href="https://www.codecogs.com/eqnedit.php?latex=x_i'=A_{i,i}x_i&plus;b_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i'=A_{i,i}x_i&plus;b_i" title="x_i'=A_{i,i}x_i+b_i" /></a>
 
-Result (skip-gram): detA (product of eigenvalue A<sub>i,i</sub>) = -4.824009094491605e-46 <br>
-cosine similarity of "mean metonymization vector" and "parallel translation b" = 0.8057
+Result: 
+
+|| CBOW | skip-gram |
+|:-:|--:|--:|
+|detA (product of eigenvalue A<sub>i,i</sub>)|-1.1874e-120 | -4.8240e-46 |
+|cos similarity of "mean metonymization vector" and "parallel translation b" | 0.7028 | 0.8057 |
+
 ในกรณีนี้ ไม่มีค่าใดที่มากกว่า 1 ใน A เพราะฉะนั้น สามารถสรุปได้ว่า metonymization ไม่ใช่ parallel translation อย่างเดียว แต่ similarity ยังมี 0.8 metonymization จึงเกิดจาก parallel translation b เป็นหลัก
 
 #### 3.2.2 Affine Transformation with full matrix
