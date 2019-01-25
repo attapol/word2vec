@@ -5,12 +5,11 @@ from gensim.models import word2vec
 import csv
 import random
 import numpy as np
-from scipy.stats import norm
 import pandas as pd
 import matplotlib as mpl
 #font = {"family":"TH Sarabun New"}
 #font = {"family":"Ayuthaya"}
-font = {"family":"Dejavu"}
+font = {"family":"Dejavu Suns"}
 mpl.rc('font', **font)
 import matplotlib.pyplot as plt
 import pylab as plb
@@ -44,7 +43,10 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     write_file.close()
 
 def cos_sim(v1, v2):
-    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+    return round(np.dot(v1, v2) / (norm(v1) * norm(v2)),4)
+
+def norm(vector):
+    return round(np.linalg.norm(vector), 4)
 
 def mahalanobis(vectors):
     mean_vec = np.mean(vectors, axis=0)
@@ -76,11 +78,11 @@ class Metonymy:
     def similar(self, word, n=20):
         results = self.model.wv.most_similar(positive=[word], topn=n)
         for result in results:
-           print(result)
+           print(result[0], round(result[1],4))
     
     # calculate similarity & distance of two words
     def two_word(self, word1, word2):
-        return cos_sim(met.model.wv[word1], met.model.wv[word2]), np.linalg.norm(met.model.wv[word1] - met.model.wv[word2])
+        return cos_sim(self.vec(word1), self.vec(word2)), norm(self.vec(word1) - self.vec(word2))
 
     # return similarity of random two words
     def sim_two_word_random(self):
@@ -88,7 +90,7 @@ class Metonymy:
         #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
             #words = random.sample(self.vocab, 2)
         #print(words)
-        return (cos_sim(met.model.wv[words[0]],met.model.wv[words[1]]))
+        return (cos_sim(self.vec(words[0]),self.vec(words[1])))
     
     # plot distributions of similarity
     def sim_words(self, k, log=False):
@@ -121,43 +123,41 @@ class Metonymy:
             print(i,(k-j)/k*100)
     
     # return distance of random two words
-    def dis_two_word_random(self):
+    def dis_pair_random(self):
         words = random.sample(self.vocab, 2)
         #while words[0][0].isalpha() == False or words[1][0].isalpha() == False:
             #words = random.sample(self.vocab, 2)
         #print(words)
-        return (np.linalg.norm(met.model.wv[words[0]] - met.model.wv[words[1]]))
+        return (np.linalg.norm(self.model.wv[words[0]] - self.model.wv[words[1]]))
     
-    # plot distributions of distance    
-    def dis_words(self, num_of_pair, log=False):
-        dis_list = [self.dis_two_word_random() for i in range(num_of_pair)]
+    # plot distributions of distance of random pairs
+    def dis_pairs(self, num_of_pair, log=False):
+        dis_list = [self.dis_pair_random() for i in range(num_of_pair)]
         
-        plt.hist(dis_list, bins=400, range=(0,10))
+        plt.hist(dis_list, bins=240, range=(0,60))
         plt.xlabel('Euclidean distance')
         plt.ylabel('numbers')
         if log == True:
             plt.yscale('log')
-        plt.title('distances of random {} word pairs (bin=0.025)'.format(num_of_pair))
+        plt.title('distances of random {} word pairs (bin=0.25)'.format(num_of_pair))
+        plt.show()
+    
+    # plot distance of random k words
+    def dis_words(self, k):
+        words = random.sample(self.vocab, k)
+        dis_list = [norm(self.vec(word)) for word in words]
+        
+        plt.hist(dis_list, bins=240, range=(0,60))
+        plt.xlabel('Euclidean distance from zero')
+        plt.ylabel('numbers')
+        plt.title('distances of random {} words (bin=0.25)'.format(k))
         plt.show()
         
     # vector calculation
     def calc(self, posi, nega, n=20):
         results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
         for result in results:
-           print(result)
-           
-    def save_vec(self, open_tsv='wordpair.tsv',write_tsv='metonymy_vector.tsv'):
-        open_file = open(open_tsv, 'r', encoding='utf-8')
-        write_file = open(write_tsv, 'w', encoding='utf-8')
-        lines = list(csv.reader(open_file, delimiter='\t'))
-        writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
-        
-        for line in lines:
-            new_line = line + list(self.model.wv[line[0]]-self.model.wv[line[1]])
-            writer.writerow(new_line)
-            
-        open_file.close()
-        write_file.close()   
+           print(result[0], round(result[1],4)) 
     
     def vec_dis(self, open_tsv='metonymy_vector.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
@@ -187,20 +187,61 @@ class Metonymy:
         
         return metonymy_mahal, country_mahal
     
-    # similarity of each metonymiztion vector    
-    def vec_sim(self, open_tsv='metonymy_vector.tsv'):
+    # similarity of each metonym vector    
+    def table_sim(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
         lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        met_vec = [self.model.wv[line[0]] for line in lines]
+        label = [line[0] for line in lines]
+        label.append('mean')
+        
+        sims = np.zeros((len(lines), len(lines)+1))
+        for i in range(len(lines)):
+            for j in range(len(lines)):
+                sims[i][j] = round(cos_sim(met_vec[i], met_vec[j]) , 3)
+            sims[i][-1] = np.mean(sims[i][:-1])
+        
+        df = pd.DataFrame(sims, columns=label, index=label[:-1])
+        return df
+    
+    def table_dis(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        met_vec = np.array([self.model.wv[line[0]] for line in lines], dtype=float)
+        country_vec = np.array([self.model.wv[line[1]] for line in lines], dtype=float)
+        
+        table = np.zeros((len(lines), len(lines)+1))
+        for i in range(len(lines)):
+            for j in range(len(lines)):
+                table[i][j] = round(np.linalg.norm(met_vec[i]-met_vec[j]), 3)
+            table[i][-1] = np.mean(table[i][:-1])
+        label = [line[0] for line in lines]
+        label.append('mean')
+        df = pd.DataFrame(table, columns=label, index=label[:-1])
+        return df
+    
+    # similarity of each metonymiztion vector    
+    def table_sim_metonymize(self, open_tsv='wordpair.tsv'):
+        open_file = open(open_tsv, 'r', encoding='utf-8')
+        lines = list(csv.reader(open_file, delimiter='\t'))
+        
+        met_vec = [self.model.wv[line[0]] for line in lines]
+        country_vec = [self.model.wv[line[1]] for line in lines]
+        
+        metonymize = np.array([m - c for m, c in zip(met_vec,country_vec)],dtype=float)
+        label = [line[0] for line in lines]
         
         sims = np.zeros((len(lines), len(lines)))
         for i in range(len(lines)):
             for j in range(len(lines)):
-                sims[i][j] = round(cos_sim(np.array(lines[i][2:],dtype=float), np.array(lines[j][2:],dtype=float)),3)
-        label = [line[0] for line in lines]
+                sims[i][j] = round(cos_sim(metonymize[i], metonymize[j]) , 3)
+        
         df = pd.DataFrame(sims, columns=label, index=label)
         return df
 
-    def affine_simple(self, open_tsv='wordpair.tsv'):
+    def affine_diag(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
         lines = list(csv.reader(open_file, delimiter='\t'))
         
@@ -219,9 +260,9 @@ class Metonymy:
         self.A_diag = np.diag(coef_list)
         self.b_diag = intercept_list
         print('similarity of metonymy vector and coefficient b', cos_sim(mean_metonymize,intercept_list))
-        return np.linalg.det(np.diag(coef_list)), mean_metonymize
+        return np.linalg.det(np.diag(coef_list))
     
-    def affine_multiple(self, open_tsv='wordpair.tsv'):
+    def affine_full(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
         lines = list(csv.reader(open_file, delimiter='\t'))
         
@@ -241,6 +282,7 @@ class Metonymy:
         self.A_full = np.array(coef_list)
         self.b_full = intercept_list
         print('similarity of metonymy vector and coefficient b', cos_sim(self.mean_met_vec,intercept_list))
+        open_file.close()
         return np.linalg.det(np.array(coef_list))
     
     def apply_affine_diag(self, country):
@@ -251,22 +293,46 @@ class Metonymy:
         map_vec = np.dot(self.A_full, self.model.wv[country]) + self.b_full
         return map_vec
     
-    def compare_affine(self,country,metonym):
-        print('+ mean vec: {}'.format(cos_sim(self.vec(country)+self.mean_met_vec, met2.vec(metonym))))
-        print('diag affine: {}'.format(cos_sim(self.apply_affine_diag(country), self.vec(metonym))))
-        print('full affine: {}'.format(cos_sim(self.apply_affine_full(country), self.vec(metonym))))
-
+    # compare 'only vector' 'diag Affine' 'full Affine'
+    def compare_affine(self,country, metonym):
+        print('+ mean vec | diag affine | full affine')
+        
+        a = (cos_sim(self.vec(country)+self.mean_met_vec, self.vec(metonym)))
+        b = (cos_sim(self.apply_affine_diag(country), self.vec(metonym)))
+        c = (cos_sim(self.apply_affine_full(country), self.vec(metonym)))
+        
+        print(str(a) +'|'+ str(b) +'|'+ str(c))
+    
+    # for compare all word pair
     def compare_all(self, open_tsv='wordpair.tsv'):
+        with open(open_tsv, 'r', encoding='utf-8') as open_file:
+            lines = list(csv.reader(open_file, delimiter='\t'))
+        
+            for line in lines:
+                print(line[1]+' : '+line[0])
+                self.compare_affine(line[1],line[0])
+
+    def save_embedding_projector(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
+        vec_file = open('metonymy.tsv', 'w', encoding='utf-8')
+        label_file = open('label.tsv', 'w', encoding='utf-8')
         lines = list(csv.reader(open_file, delimiter='\t'))
-        
         for line in lines:
-            print(line[1]+' : '+line[0])
-            self.compare_affine(line[1],line[0])
+            vec_file.write('\t'.join(map(str,self.model.wv[line[0]]))+'\n')
+            label_file.write(line[0] + '\n')
+        for line in lines:
+            vec_file.write('\t'.join(map(str,self.model.wv[line[1]]))+'\n')
+            label_file.write(line[1] + '\n')
+        for other in self.vocab[:10000]:
+            vec_file.write('\t'.join(map(str,self.vec(other)))+'\n')
+            label_file.write(other + '\n')
         
+        open_file.close()
+        vec_file.close()
+        label_file.close()
         
         
 # instantiaion
-met1 = Metonymy('article.model')
+met1 = Metonymy('article1.model')
 met2 = Metonymy('article2.model')
 
