@@ -5,8 +5,6 @@ import csv
 import numpy as np
 import collections
 
-from pythainlp.tokenize import word_tokenize
-
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
@@ -21,17 +19,13 @@ process of this program
 
 all process
 1) scrape('thairath.tsv', 130000, 1000)
-1) error_check ... 5 methods
+1) error_check ... 3 methods
     - column_check(open_tsv, num_of_row) 
         whether the number of column is correct  
     - print_content(open_tsv, id) 
         print one article by specifying id
-    - copy_headline(open_tsv, write_tsv, *id) 
-        if there is no description, copy headline
     - delete_line(open_tsv, write_tsv, id) 
         delete one article
-    - delete_multi_label(open_tsv, write_tsv)
-        delete article that has more than 2 labels
 
 2) find_article(open_tsv, write_tsv, keyword, label)
 2) count_label(open_tsv)
@@ -126,7 +120,7 @@ def scrape(start_id, end_id, open_tsv='thairath1.tsv'):
 
 
 # error check 1 (in case the number of columns are incorrect)
-def column_check(num_of_column, open_tsv='thairath1.tsv'):
+def column_check(open_tsv='thairath1.tsv', num_of_column=4):
     """
     the correct number of thairath.tsv is 4 (id, headline, description, article)
     the correct number of labeled tsv is 5 (id, headline, description, article, label)
@@ -162,38 +156,7 @@ def print_content(article_id, open_tsv='thairath1.tsv'):
                     print('--------------------------------------')
 
 
-# error check 3 (reshape tsv)
-def copy_headline(open_tsv, write_tsv, *id):  # *id > tuple of ids
-    """
-    some articles have only headline (no description)
-    if then, copy headline to description
-
-    incorrect data:
-    line[0] = id
-    line[1] = headline
-    (no description)
-    line[2] = article
-
-    copy_headline(tsv_file, 1200000, 1200001)
-    >> save [id, headline, headline(copy), article] in tsv
-    """
-    open_file = open(open_tsv, 'r', encoding='utf-8')
-    write_file = open(write_tsv, 'w', encoding='utf-8')
-    lines = list(csv.reader(open_file, delimiter='\t'))
-    new_list = lines
-    for i, line in enumerate(lines):
-        if int(line[0]) in id and len(line) == 3:  # if no description
-            new_line = [line[0], line[1], line[1], line[2]]  # copy headline
-            new_list[i] = new_line
-
-    # save as new tsv file
-    writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
-    writer.writerows(new_list)
-    open_file.close()
-    write_file.close()
-
-
-# error check 4 (delete article)
+# error check 3 (delete article)
 def delete_line(open_tsv, write_tsv, id):
     """
     delete one line with ID
@@ -214,44 +177,6 @@ def delete_line(open_tsv, write_tsv, id):
     open_file.close()
     write_file.close()
 
-
-# error check 5 (delete multi labeled article)
-def delete_multi_label(open_tsv, write_tsv):
-    """
-    some articles have more than two labels
-    if have, delete the article
-    make list of id before, if the same id are in the list then dont append
-    """
-    open_file = open(open_tsv, 'r', encoding='utf-8')
-    write_file = open(write_tsv, 'w', encoding='utf-8')
-    lines = list(csv.reader(open_file, delimiter='\t'))
-    id_list = [line[0] for line in lines]  # make list of id
-    new_list = []
-    for line in lines:
-        if id_list.count(line[0]) == 1:  # append article to new list iff the id is unique
-            new_list.append(line)
-        else:
-            pass
-
-    # save as new tsv file
-    writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
-    writer.writerows(new_list)
-    open_file.close()
-    write_file.close()
-    
-def insert_zero(open_tsv, write_tsv):
-    open_file = open(open_tsv, 'r', encoding='utf-8')
-    write_file = open(write_tsv, 'w', encoding='utf-8')
-    lines = list(csv.reader(open_file, delimiter='\t'))
-    id_list = [line[0] for line in lines]  # make list of id
-    for i, id in enumerate(id_list):
-        if len(id) < 7:
-            lines[i][0] = '0'*(7-len(id)) + lines[i][0]
-            
-    writer = csv.writer(write_file, lineterminator='\n', delimiter='\t')
-    writer.writerows(lines)
-    open_file.close()
-    write_file.close()
 
 ### 2. function for find articles & save as tsv ###
 def find_article(open_tsv, write_tsv, keyword, label):
@@ -304,7 +229,6 @@ def count_label(open_tsv):
     print(label_counter)  # check the number of each label
     file.close()
 
-### 3. tokenize
 
 ### 4. function for train (need instance) ###
 class ML:

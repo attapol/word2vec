@@ -20,7 +20,7 @@ lr = LinearRegression()
     
 def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokenized1.tsv'):
     """
-    tokenize only headline and save
+    tokenize headline (line[1]) & article (line[-1])
     """
     # make id list for checking duplicate
     file = open(write_tsv, 'r', encoding='utf-8')
@@ -35,9 +35,11 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     
     for line in lines[start_index: end_index]:
         if line[0] not in id_list:
-            # ถ้าใช้ headline line[1], description line[2] 
-            new_line = [line[0], '|'.join(word_tokenize(line[-1]))]
-            writer.writerow(new_line)
+            
+            headline = [line[0], '|'.join(word_tokenize(line[1]))]
+            writer.writerow(headline)
+            article = [line[0], '|'.join(word_tokenize(line[-1]))]
+            writer.writerow(article)
     
     open_file.close()
     write_file.close()
@@ -333,6 +335,6 @@ class Metonymy:
         
         
 # instantiaion
-met1 = Metonymy('article1.model')
-met2 = Metonymy('article2.model')
+met1 = Metonymy('article1.model') # CBOW
+met2 = Metonymy('article2.model') # skip-gram
 
