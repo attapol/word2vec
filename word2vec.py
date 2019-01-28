@@ -36,9 +36,9 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     for line in lines[start_index: end_index]:
         if line[0] not in id_list:
             
-            headline = [line[0], '|'.join(word_tokenize(line[1]))]
+            headline = [line[0], 'ゐ'.join(word_tokenize(line[1]))]
             writer.writerow(headline)
-            article = [line[0], '|'.join(word_tokenize(line[-1]))]
+            article = [line[0], 'ゐ'.join(word_tokenize(line[-1]))]
             writer.writerow(article)
     
     open_file.close()
@@ -61,7 +61,7 @@ def mahalanobis(vectors):
 def make_model(open_tsv='tokenized.tsv', save_name='article1.model'):
     file = open(open_tsv, 'r', encoding='utf-8')
     lines = list(csv.reader(file, delimiter='\t'))
-    word_list = [line[1].split('|') for line in lines]
+    word_list = [line[1].split('ゐ') for line in lines]
     model = word2vec.Word2Vec(word_list, sg=0, size=200, min_count=5, window=15)
     model.save(save_name)
 
