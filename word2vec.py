@@ -60,7 +60,6 @@ def mahalanobis(vectors):
 
 def make_model(open_tsv='tokenized.tsv', save_name='article1.model'):
     file = open(open_tsv, 'r', encoding='utf-8')
-    lines = list(csv.reader(file, delimiter='\t'))
     word_list = [line[1].split('ゐ') for line in lines]
     model = word2vec.Word2Vec(word_list, sg=0, size=200, min_count=5, window=15)
     model.save(save_name)
@@ -313,6 +312,17 @@ class Metonymy:
             for line in lines:
                 print(line[1]+' : '+line[0])
                 self.compare_affine(line[1],line[0])
+            
+    def search_metonym(self, country, k=10):
+        affine = self.apply_affine_diag(country)
+        parallel = self.vec(country) + self.mean_met_vec
+        
+        all_sim_affine = {cos_sim(affine, self.vec(word)):word for word in self.vocab}
+        all_sim_parallel = {cos_sim(parallel, self.vec(word)):word for word in self.vocab}
+        result_affine = sorted(all_sim_affine.items())[-k:][::-1]
+        result_parallel = sorted(all_sim_parallel.items())[-k:][::-1]
+        print(result_affine)
+        print(result_parallel)
 
     def save_embedding_projector(self, open_tsv='wordpair.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
@@ -335,6 +345,6 @@ class Metonymy:
         
         
 # instantiaion
-met1 = Metonymy('article1.model') # CBOW
+met1 = Metonymy('cbow.model') # CBOW
 met2 = Metonymy('article2.model') # skip-gram
 
