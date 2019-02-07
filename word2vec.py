@@ -7,6 +7,8 @@ import random
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
+import warnings
+warnings.filterwarnings('ignore')
 #font = {"family":"TH Sarabun New"}
 #font = {"family":"Ayuthaya"}
 font = {"family":"Dejavu Suns"}
@@ -35,17 +37,17 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     
     for line in lines[start_index: end_index]:
         if line[0] not in id_list:
-            
-            headline = [line[0], 'ゐ'.join(word_tokenize(line[1]))]
+
+            headline = [line[0], '\t'.join(word_tokenize(line[1]))]
             writer.writerow(headline)
-            article = [line[0], 'ゐ'.join(word_tokenize(line[-1]))]
+            article = [line[0], '\t'.join(word_tokenize(line[-1]))]
             writer.writerow(article)
     
     open_file.close()
     write_file.close()
 
 def cos_sim(v1, v2):
-    return round(np.dot(v1, v2) / (norm(v1) * norm(v2)),4)
+    return round(np.dot(v1, v2) / (norm(v1) * norm(v2)), 4)
 
 def norm(vector):
     return round(np.linalg.norm(vector), 4)
@@ -58,13 +60,13 @@ def mahalanobis(vectors):
     mahal_dis = list(map(lambda vec: np.sqrt(np.dot(np.dot(vec, inv_matrix), vec.T)), deviation_vec))
     return mahal_dis
 
-def make_model(open_tsv='tokenized.tsv', save_name='article1.model'):
+def make_model(open_tsv='tokenized.tsv', save_name='cbow.model'):
     file = open(open_tsv, 'r', encoding='utf-8')
-    word_list = [line[1].split('ゐ') for line in lines]
-    model = word2vec.Word2Vec(word_list, sg=0, size=200, min_count=5, window=15)
+    lines = csv.reader(file, delimiter='\t')
+    word_list = [line[1].split('\t') for line in lines]
+    model = word2vec.Word2Vec(word_list, sg=0, size=300, min_count=5, window=15)  # CBOW: sg=0, skip-gram: sg=1
     model.save(save_name)
 
-    
 class Metonymy:
 
     def __init__(self, model):
@@ -76,10 +78,10 @@ class Metonymy:
         return self.model.wv[word]
     
     # search most similar n words
-    def similar(self, word, n=20):
+    def similar(self, word, n=10):
         results = self.model.wv.most_similar(positive=[word], topn=n)
         for result in results:
-           print(result[0], round(result[1],4))
+           print(result[0], round(result[1], 4))
     
     # calculate similarity & distance of two words
     def two_word(self, word1, word2):
@@ -155,10 +157,10 @@ class Metonymy:
         plt.show()
         
     # vector calculation
-    def calc(self, posi, nega, n=20):
+    def calc(self, posi, nega, n=10):
         results = self.model.wv.most_similar(positive=posi, negative=nega, topn=n)
         for result in results:
-           print(result[0], round(result[1],4)) 
+            print(result[0], round(result[1], 4))
     
     def vec_dis(self, open_tsv='metonymy_vector.tsv'):
         open_file = open(open_tsv, 'r', encoding='utf-8')
@@ -321,7 +323,9 @@ class Metonymy:
         all_sim_parallel = {cos_sim(parallel, self.vec(word)):word for word in self.vocab}
         result_affine = sorted(all_sim_affine.items())[-k:][::-1]
         result_parallel = sorted(all_sim_parallel.items())[-k:][::-1]
+        print('Affine Transformation')
         print(result_affine)
+        print('\nParallel Translation')
         print(result_parallel)
 
     def save_embedding_projector(self, open_tsv='wordpair.tsv'):
@@ -345,6 +349,6 @@ class Metonymy:
         
         
 # instantiaion
-met1 = Metonymy('cbow.model') # CBOW
-met2 = Metonymy('article2.model') # skip-gram
+met1 = Metonymy('cbow.model')  # CBOW
+met2 = Metonymy('article2.model')  # skip-gram
 
