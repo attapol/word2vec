@@ -62,13 +62,13 @@ def mahalanobis(vectors):
     mahal_dis = list(map(lambda vec: np.sqrt(np.dot(np.dot(vec, inv_matrix), vec.T)), deviation_vec))
     return mahal_dis
 
-def make_model(open_tsv='tokenized_test.tsv', save_name='test.txt', skipgram=0):
+def make_model(open_tsv='tokenized_test.tsv', save_name='test.bin', skipgram=0):
     file = open(open_tsv, 'r', encoding='utf-8')
     lines = csv.reader(file, delimiter='\t')
     word_list = [line[1].split('\t') for line in lines]
     model = word2vec.Word2Vec(word_list, sg=skipgram, size=300, min_count=5, window=15)  # CBOW: sg=0, skip-gram: sg=1
     #model.save(save_name)
-    model.wv.save_word2vec_format(save_name)
+    model.wv.save_word2vec_format(save_name, binary=True)
 
 class Metonymy:
 
