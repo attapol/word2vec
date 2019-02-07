@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # load vector data
-model = KeyedVectors.load_word2vec_format('./test.bin', unicode_errors='ignore', binary=True)
+model = KeyedVectors.load_word2vec_format('./model.bin', unicode_errors='ignore', binary=True)
 
 # function for searching similar words
 def sim1(word, n=5):
