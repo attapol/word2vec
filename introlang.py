@@ -1,9 +1,12 @@
 import numpy as np
-from gensim.models import word2vec 
+from gensim.models import word2vec
+from gensim.models import KeyedVectors
 nor = np.linalg.norm
+import warnings
+warnings.filterwarnings('ignore')
 
 # load vector data
-model = word2vec.Word2Vec.load('article1.model')
+model = KeyedVectors.load_word2vec_format('./model.bin', unicode_errors='ignore', binary=True)
 
 # function for searching similar words
 def sim1(word, n=5):
@@ -15,7 +18,7 @@ def sim1(word, n=5):
 def sim2(word1, word2):
     vec1 = model.wv[word1]
     vec2 = model.wv[word2]
-    return round(np.dot(vec1, vec2) / (nor(vec1) * nor(vec2)), 4)
+    return round(float(np.dot(vec1, vec2)) / (nor(vec1) * nor(vec2)), 4)
 
 # function for arithmetic
 def plus(pos1, pos2, n=5):
