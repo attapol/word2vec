@@ -1,3 +1,6 @@
+"""
+@author: Nozomi
+"""
 import numpy as np
 from gensim.models import KeyedVectors
 nor = np.linalg.norm
@@ -39,7 +42,6 @@ def minus(pos, neg, n=5):
     for result in results:
         print(result[0], round(result[1], 4))
 
-
 def calc(pos1, neg1, pos2, n=5):
     """
     calculate: pos1 - neg1 + pos2
@@ -50,5 +52,3 @@ def calc(pos1, neg1, pos2, n=5):
     results = model.wv.most_similar(positive=[pos1, pos2], negative=[neg1], topn=n)
     for result in results:
         print(result[0], round(result[1], 4))
-    
-    
