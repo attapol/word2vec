@@ -49,7 +49,7 @@ def tokenize(start_index, end_index, open_tsv='thairath1.tsv', write_tsv='tokeni
     write_file.close()
 
 def cos_sim(v1, v2):
-    return round(np.dot(v1, v2) / (norm(v1) * norm(v2)), 4)
+    return round(float(np.dot(v1, v2)) / (norm(v1) * norm(v2)), 4)
 
 def norm(vector):
     return round(np.linalg.norm(vector), 4)
@@ -64,9 +64,10 @@ def mahalanobis(vectors):
 
 def make_model(open_tsv='tokenized_test.tsv', save_name='test.model', skipgram=0):
     file = open(open_tsv, 'r', encoding='utf-8')
-    lines = csv.reader(file, delimiter='\t')
-    word_list = [line[1].split('\t') for line in lines]
-    model = word2vec.Word2Vec(word_list, sg=skipgram, size=300, min_count=5, window=15)  # CBOW: sg=0, skip-gram: sg=1
+    lines = list(csv.reader(file, delimiter='\t'))
+    for i in range(len(lines)):
+        lines[i] = lines[i][1].split('\t')
+    model = word2vec.Word2Vec(lines, sg=skipgram, size=300, min_count=5, window=15)  # CBOW: sg=0, skip-gram: sg=1
     model.save(save_name)
     #model.wv.save_word2vec_format(save_name, binary=True)
 
