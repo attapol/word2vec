@@ -1,5 +1,4 @@
 import numpy as np
-from gensim.models import word2vec
 from gensim.models import KeyedVectors
 nor = np.linalg.norm
 import warnings
