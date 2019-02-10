@@ -12,12 +12,21 @@ model = KeyedVectors.load_word2vec_format('./model.bin', unicode_errors='ignore'
 
 # function for searching similar words
 def sim1(word, n=5):
+    if word not in model:
+        print ('{} not in the vocabulary'.format(word))
+        return
     results = model.wv.most_similar(positive=[word], topn=n)
     for result in results:
         print(result[0], round(result[1], 4))
  
 # function for calculating the similarity of 2 words
 def sim2(word1, word2):
+    if word1 not in model:
+        print ('{} not in the vocabulary'.format(word1))
+        return
+    if word2 not in model:
+        print ('{} not in the vocabulary'.format(word2))
+        return
     vec1 = model.wv[word1]
     vec2 = model.wv[word2]
     return round(float(np.dot(vec1, vec2)) / (nor(vec1) * nor(vec2)), 4)
